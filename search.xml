@@ -1,72 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>解决“索引超出了数组界限”</title>
-    <url>/2021/05/31/Config-Array-Out/</url>
-    <content><![CDATA[<p>今天踩了个坑。周末加班搞了个异构数据同步的中间件工具，本地调试编译好后部署到正式环境，一直提示：</p>
-<blockquote>
-<p>索引超出了数组界限</p>
-</blockquote>
-<p>开始根据提示检查源代码里数组看哪个数组超出了个数，但我自己电脑上都是运行正常的，怎么到了其它电脑上就出现这个异常提示？所以肯定不是数组超出个数的原因。</p>
-<p>而且它是第一个数组就提示异常，我就怀疑可能是它读取不到配置文件里的参数导致，最后还真是这么一回事。搜索了很多资料，终于找到一个对头的原因，很简单，错误也很低级。</p>
-<blockquote>
-<p>就是配置文件ini文件首行要留空</p>
-</blockquote>
-<p>我Windows 10首行不留空可以正常读取识别，但服务器Windows Server 2012和2008都不认。</p>
-]]></content>
-      <categories>
-        <category>笔记</category>
-      </categories>
-      <tags>
-        <tag>中间件</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hexo、GitHub、Mongodb、Vercel、Twikoo搭建免费博客</title>
-    <url>/2021/12/05/Hexo-Github-Mongodb-Vercel-Twikoo/</url>
-    <content><![CDATA[<p>很久之前在阿里云撸了几年88元一年的虚拟机，到期后续费太贵了，对于一个不是生产力的网站来说，如果续费就有点飘了，家里又没有矿，没法任性。</p>
-<p>然后发现腾讯云的虚拟机也对新用户优惠，又撸了两年。年初的时候到期了，但一直没有去续费。一是前段时间都比较忙，忘记了；二是续费太贵了。</p>
-<p>就这样，几年的琐琐碎碎就没有了。</p>
-<p>只是可惜了备案，重新再备案已经不再想了，对于网站的备案真的是一言难尽！</p>
-<p>有空了，又想折腾一下。于是就有了这个新的网站。</p>
-<p>不用备案，除了域名，都是白嫖的。</p>
-<p>采用Hexo、Github、Mongodb、Vercel、Twikoo免费搭建，使用的<a href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a>主题。</p>
-<h1 id="一、Hexo-Github-Pages搭建免费博客"><a href="#一、Hexo-Github-Pages搭建免费博客" class="headerlink" title="一、Hexo+Github Pages搭建免费博客"></a>一、Hexo+Github Pages搭建免费博客</h1><p>以前一直使用的WordPress搭建博客，挺好用的，主题模板和插件都非常多，但是唯一不好的就是越来越臃肿，拖慢了访问速度。</p>
-<p>而且没法撸到适合WordPress的免费环境和MySQL。找来找去，最后就决定了使用Hexo+Github Pages搭建。</p>
-<p>具体的搭建步骤，我是参考了知乎上这篇文章完成的，在此就不多说了。</p>
-<blockquote>
-<p>参考文章：<a href="https://zhuanlan.zhihu.com/p/60578464">使用 Hexo+GitHub 搭建个人免费博客教程（小白向）</a></p>
-</blockquote>
-<h1 id="二、Twikoo评论插件"><a href="#二、Twikoo评论插件" class="headerlink" title="二、Twikoo评论插件"></a>二、Twikoo评论插件</h1><p>之前博客搭建好后，一直没有开启评论。现在有空了就折腾一下，根据Twikoo作者的说明文档很快就能搭建好。</p>
-<p>原本可以使用腾讯的免费优惠套餐，但现在没有这个免费套餐了。由于基础版 1 已从 0 元涨价至 6.9 元 / 月，需要付费购买环境才能部署。</p>
-<p>不过免费的还可以用到Mongodb和Vercel来部署完成，只是国内的访问速度比不过腾讯云。</p>
-<blockquote>
-<p>参考文章：<a href="https://twikoo.js.org/quick-start.html#%E4%BA%91%E5%87%BD%E6%95%B0%E9%83%A8%E7%BD%B2">Twikoo云函数部署操作说明</a></p>
-</blockquote>
-<p>需要注意的是，要用到Github的仓库，先在Github创建好一个分支仓库。</p>
-<h1 id="三、将Hexo部署到Vercel"><a href="#三、将Hexo部署到Vercel" class="headerlink" title="三、将Hexo部署到Vercel"></a>三、将Hexo部署到Vercel</h1><p>误打误撞，发现Hexo可以部署到Vercel。</p>
-<p>GitHub Pages有时受DNS污染，无法访问。</p>
-<p>Vercel在港台有 CDN 节点。所以要比GitHub要更快和稳定一些。</p>
-<p>实际还是要使用到GitHub才行，因为Vercel只是一个静态网页部署网站，并不托管代码。</p>
-<p>我们通过 <strong>GitHub 来托管 hexo deploy 生成的网页文件，并设置自动导入。当你的源代码仓库有变动后，Vercel 会第一时间检测到并重新部署网站，部署完成后会通过邮件提醒。</strong></p>
-<blockquote>
-<p>参考文章：<a href="https://snow.js.org/hexo-vercel/">Hexo：将你的博客部署到 Vercel</a></p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>笔记</category>
-      </categories>
-      <tags>
-        <tag>Hexo</tag>
-        <tag>Github</tag>
-        <tag>Mongodb</tag>
-        <tag>Vercel</tag>
-        <tag>Twikoo</tag>
-        <tag>网站</tag>
-        <tag>博客</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Nginx配置详解</title>
     <url>/2021/06/05/Nginx-Config-ReadMe/</url>
     <content><![CDATA[<p><img src="https://p1-tt.byteimg.com/origin/pgc-image/2a700e0812404381b24db87505f22a53?from=pc" alt="程序员安全规范：安全无小事，安全防范从nginx配置做起"></p>
@@ -171,6 +105,72 @@
       </tags>
   </entry>
   <entry>
+    <title>解决“索引超出了数组界限”</title>
+    <url>/2021/05/31/Config-Array-Out/</url>
+    <content><![CDATA[<p>今天踩了个坑。周末加班搞了个异构数据同步的中间件工具，本地调试编译好后部署到正式环境，一直提示：</p>
+<blockquote>
+<p>索引超出了数组界限</p>
+</blockquote>
+<p>开始根据提示检查源代码里数组看哪个数组超出了个数，但我自己电脑上都是运行正常的，怎么到了其它电脑上就出现这个异常提示？所以肯定不是数组超出个数的原因。</p>
+<p>而且它是第一个数组就提示异常，我就怀疑可能是它读取不到配置文件里的参数导致，最后还真是这么一回事。搜索了很多资料，终于找到一个对头的原因，很简单，错误也很低级。</p>
+<blockquote>
+<p>就是配置文件ini文件首行要留空</p>
+</blockquote>
+<p>我Windows 10首行不留空可以正常读取识别，但服务器Windows Server 2012和2008都不认。</p>
+]]></content>
+      <categories>
+        <category>笔记</category>
+      </categories>
+      <tags>
+        <tag>中间件</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hexo、GitHub、Mongodb、Vercel、Twikoo搭建免费博客</title>
+    <url>/2021/12/05/Hexo-Github-Mongodb-Vercel-Twikoo/</url>
+    <content><![CDATA[<p>很久之前在阿里云撸了几年88元一年的虚拟机，到期后续费太贵了，对于一个不是生产力的网站来说，如果续费就有点飘了，家里又没有矿，没法任性。</p>
+<p>然后发现腾讯云的虚拟机也对新用户优惠，又撸了两年。年初的时候到期了，但一直没有去续费。一是前段时间都比较忙，忘记了；二是续费太贵了。</p>
+<p>就这样，几年的琐琐碎碎就没有了。</p>
+<p>只是可惜了备案，重新再备案已经不再想了，对于网站的备案真的是一言难尽！</p>
+<p>有空了，又想折腾一下。于是就有了这个新的网站。</p>
+<p>不用备案，除了域名，都是白嫖的。</p>
+<p>采用Hexo、Github、Mongodb、Vercel、Twikoo免费搭建，使用的<a href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a>主题。</p>
+<h1 id="一、Hexo-Github-Pages搭建免费博客"><a href="#一、Hexo-Github-Pages搭建免费博客" class="headerlink" title="一、Hexo+Github Pages搭建免费博客"></a>一、Hexo+Github Pages搭建免费博客</h1><p>以前一直使用的WordPress搭建博客，挺好用的，主题模板和插件都非常多，但是唯一不好的就是越来越臃肿，拖慢了访问速度。</p>
+<p>而且没法撸到适合WordPress的免费环境和MySQL。找来找去，最后就决定了使用Hexo+Github Pages搭建。</p>
+<p>具体的搭建步骤，我是参考了知乎上这篇文章完成的，在此就不多说了。</p>
+<blockquote>
+<p>参考文章：<a href="https://zhuanlan.zhihu.com/p/60578464">使用 Hexo+GitHub 搭建个人免费博客教程（小白向）</a></p>
+</blockquote>
+<h1 id="二、Twikoo评论插件"><a href="#二、Twikoo评论插件" class="headerlink" title="二、Twikoo评论插件"></a>二、Twikoo评论插件</h1><p>之前博客搭建好后，一直没有开启评论。现在有空了就折腾一下，根据Twikoo作者的说明文档很快就能搭建好。</p>
+<p>原本可以使用腾讯的免费优惠套餐，但现在没有这个免费套餐了。由于基础版 1 已从 0 元涨价至 6.9 元 / 月，需要付费购买环境才能部署。</p>
+<p>不过免费的还可以用到Mongodb和Vercel来部署完成，只是国内的访问速度比不过腾讯云。</p>
+<blockquote>
+<p>参考文章：<a href="https://twikoo.js.org/quick-start.html#%E4%BA%91%E5%87%BD%E6%95%B0%E9%83%A8%E7%BD%B2">Twikoo云函数部署操作说明</a></p>
+</blockquote>
+<p>需要注意的是，要用到Github的仓库，先在Github创建好一个分支仓库。</p>
+<h1 id="三、将Hexo部署到Vercel"><a href="#三、将Hexo部署到Vercel" class="headerlink" title="三、将Hexo部署到Vercel"></a>三、将Hexo部署到Vercel</h1><p>误打误撞，发现Hexo可以部署到Vercel。</p>
+<p>GitHub Pages有时受DNS污染，无法访问。</p>
+<p>Vercel在港台有 CDN 节点。所以要比GitHub要更快和稳定一些。</p>
+<p>实际还是要使用到GitHub才行，因为Vercel只是一个静态网页部署网站，并不托管代码。</p>
+<p>我们通过 <strong>GitHub 来托管 hexo deploy 生成的网页文件，并设置自动导入。当你的源代码仓库有变动后，Vercel 会第一时间检测到并重新部署网站，部署完成后会通过邮件提醒。</strong></p>
+<blockquote>
+<p>参考文章：<a href="https://snow.js.org/hexo-vercel/">Hexo：将你的博客部署到 Vercel</a></p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>笔记</category>
+      </categories>
+      <tags>
+        <tag>Hexo</tag>
+        <tag>Github</tag>
+        <tag>Mongodb</tag>
+        <tag>Vercel</tag>
+        <tag>Twikoo</tag>
+        <tag>网站</tag>
+        <tag>博客</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>PSElements2021智能修图，超乎想象</title>
     <url>/2021/05/30/PS-Elements-2021/</url>
     <content><![CDATA[<blockquote>
@@ -193,52 +193,6 @@
       </categories>
       <tags>
         <tag>修图</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>莹莹姐2021春季美术作品集（陆续更新中）</title>
-    <url>/2021/05/23/arts2021spring/</url>
-    <content><![CDATA[<h3 id="春天开往盛夏的《动3838次列车》"><a href="#春天开往盛夏的《动3838次列车》" class="headerlink" title="春天开往盛夏的《动3838次列车》"></a>春天开往盛夏的《动3838次列车》</h3><p><img src="https://i.loli.net/2021/05/23/B5p6Om9hzaFHPVI.jpg"></p>
-<h3 id="第二次竹影桥写生"><a href="#第二次竹影桥写生" class="headerlink" title="第二次竹影桥写生"></a>第二次竹影桥写生</h3><p><img src="https://i.loli.net/2021/05/23/Ozm4HJSPsut9VWb.jpg"><br><img src="https://i.loli.net/2021/05/23/94GPicUH3aMZTJk.jpg"></p>
-<h3 id="丹顶鹤"><a href="#丹顶鹤" class="headerlink" title="丹顶鹤"></a>丹顶鹤</h3><p><img src="https://i.loli.net/2021/05/23/13wI8VGjFKkW2yL.jpg"></p>
-<h3 id="黑白动植物写生"><a href="#黑白动植物写生" class="headerlink" title="黑白动植物写生"></a>黑白动植物写生</h3><p><img src="https://i.loli.net/2021/05/23/spFiQCDhxBOZtHn.jpg"><br><img src="https://i.loli.net/2021/05/23/lIg7DOdfyGNi8nX.jpg"><br><img src="https://i.loli.net/2021/05/23/I5AZm8LfosetbCl.jpg"><br><img src="https://i.loli.net/2021/05/23/7lMHoxuwY614TsB.jpg"><br><img src="https://i.loli.net/2021/05/23/VMweyLp3SDl7u1I.jpg"><br><img src="https://i.loli.net/2021/05/23/yh4m532PaRViCzT.jpg"><br><img src="https://i.loli.net/2021/05/23/UYcdryzJ3mQZEuI.jpg"></p>
-<h3 id="免费为三品王打了个广告"><a href="#免费为三品王打了个广告" class="headerlink" title="免费为三品王打了个广告"></a>免费为三品王打了个广告</h3><p><img src="https://i.loli.net/2021/05/23/oVS63gjuUEBHtTw.jpg"></p>
-]]></content>
-      <categories>
-        <category>课外</category>
-      </categories>
-      <tags>
-        <tag>画画</tag>
-        <tag>作品集</tag>
-        <tag>美术</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>绿色版Tomcat8.5开机启动服务配置方法</title>
-    <url>/2021/05/21/hello-world/</url>
-    <content><![CDATA[<p>主要就是添加系统环境变量和注册到服务管理。</p>
-<h2 id="添加系统环境变量Path值"><a href="#添加系统环境变量Path值" class="headerlink" title="添加系统环境变量Path值"></a>添加系统环境变量Path值</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">;D:\apache-tomcat-8.5.53\bin</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="CMD进入bin目录安装服务"><a href="#CMD进入bin目录安装服务" class="headerlink" title="CMD进入bin目录安装服务"></a>CMD进入bin目录安装服务</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cd d:</span><br><span class="line">D:\&gt;cd D:\apache-tomcat-8.5.53\bin</span><br><span class="line">D:\apache-tomcat-8.5.53\bin&gt;service.bat install</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="安装成功提示"><a href="#安装成功提示" class="headerlink" title="安装成功提示"></a>安装成功提示</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Installing the service &#x27;Tomcat8&#x27; ...</span><br><span class="line">Using CATALINA_HOME:    &quot;D:\apache-tomcat-8.5.53&quot;</span><br><span class="line">Using CATALINA_BASE:    &quot;D:\apache-tomcat-8.5.53&quot;</span><br><span class="line">Using JAVA_HOME:        &quot;D:\Java\jdk1.8.0_221&quot;</span><br><span class="line">Using JRE_HOME:         &quot;D:\Java\jdk1.8.0_221\jre&quot;</span><br><span class="line">Using JVM:              &quot;D:\Java\jdk1.8.0_221\jre\bin\server\jvm.dll&quot;</span><br><span class="line">The service &#x27;Tomcat8&#x27; has been installed.</span><br></pre></td></tr></table></figure>
-
-<h2 id="启动Tomcat"><a href="#启动Tomcat" class="headerlink" title="启动Tomcat"></a>启动Tomcat</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">D:\apache-tomcat-8.5.53\bin&gt;net start Tomcat8</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="配置开机启动"><a href="#配置开机启动" class="headerlink" title="配置开机启动"></a>配置开机启动</h2><p>进入系统服务管理找到Tomcat8属性设置自启动，或者通过bin目录下的tomcat8w.exe设置自动启动。</p>
-]]></content>
-      <categories>
-        <category>笔记</category>
-      </categories>
-      <tags>
-        <tag>Tomcat</tag>
-        <tag>绿色版</tag>
       </tags>
   </entry>
   <entry>
@@ -319,6 +273,24 @@
       </tags>
   </entry>
   <entry>
+    <title>莹莹姐2021春季美术作品集（陆续更新中）</title>
+    <url>/2021/05/23/arts2021spring/</url>
+    <content><![CDATA[<h3 id="春天开往盛夏的《动3838次列车》"><a href="#春天开往盛夏的《动3838次列车》" class="headerlink" title="春天开往盛夏的《动3838次列车》"></a>春天开往盛夏的《动3838次列车》</h3><p><img src="https://i.loli.net/2021/05/23/B5p6Om9hzaFHPVI.jpg"></p>
+<h3 id="第二次竹影桥写生"><a href="#第二次竹影桥写生" class="headerlink" title="第二次竹影桥写生"></a>第二次竹影桥写生</h3><p><img src="https://i.loli.net/2021/05/23/Ozm4HJSPsut9VWb.jpg"><br><img src="https://i.loli.net/2021/05/23/94GPicUH3aMZTJk.jpg"></p>
+<h3 id="丹顶鹤"><a href="#丹顶鹤" class="headerlink" title="丹顶鹤"></a>丹顶鹤</h3><p><img src="https://i.loli.net/2021/05/23/13wI8VGjFKkW2yL.jpg"></p>
+<h3 id="黑白动植物写生"><a href="#黑白动植物写生" class="headerlink" title="黑白动植物写生"></a>黑白动植物写生</h3><p><img src="https://i.loli.net/2021/05/23/spFiQCDhxBOZtHn.jpg"><br><img src="https://i.loli.net/2021/05/23/lIg7DOdfyGNi8nX.jpg"><br><img src="https://i.loli.net/2021/05/23/I5AZm8LfosetbCl.jpg"><br><img src="https://i.loli.net/2021/05/23/7lMHoxuwY614TsB.jpg"><br><img src="https://i.loli.net/2021/05/23/VMweyLp3SDl7u1I.jpg"><br><img src="https://i.loli.net/2021/05/23/yh4m532PaRViCzT.jpg"><br><img src="https://i.loli.net/2021/05/23/UYcdryzJ3mQZEuI.jpg"></p>
+<h3 id="免费为三品王打了个广告"><a href="#免费为三品王打了个广告" class="headerlink" title="免费为三品王打了个广告"></a>免费为三品王打了个广告</h3><p><img src="https://i.loli.net/2021/05/23/oVS63gjuUEBHtTw.jpg"></p>
+]]></content>
+      <categories>
+        <category>课外</category>
+      </categories>
+      <tags>
+        <tag>画画</tag>
+        <tag>作品集</tag>
+        <tag>美术</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Hexo deploy到GitHub出现Error Spawn failed的解决方法</title>
     <url>/2021/12/08/hexo-git-deploy-Spawn-failed/</url>
     <content><![CDATA[<p>最近部署的时候经常出现Error: Spawn failed，怎么都部署不成功。后来折腾了一轮终于找到解决方法。</p>
@@ -361,6 +333,34 @@
         <tag>Hexo</tag>
         <tag>GitHub</tag>
         <tag>Deploy</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>绿色版Tomcat8.5开机启动服务配置方法</title>
+    <url>/2021/05/21/hello-world/</url>
+    <content><![CDATA[<p>主要就是添加系统环境变量和注册到服务管理。</p>
+<h2 id="添加系统环境变量Path值"><a href="#添加系统环境变量Path值" class="headerlink" title="添加系统环境变量Path值"></a>添加系统环境变量Path值</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">;D:\apache-tomcat-8.5.53\bin</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="CMD进入bin目录安装服务"><a href="#CMD进入bin目录安装服务" class="headerlink" title="CMD进入bin目录安装服务"></a>CMD进入bin目录安装服务</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cd d:</span><br><span class="line">D:\&gt;cd D:\apache-tomcat-8.5.53\bin</span><br><span class="line">D:\apache-tomcat-8.5.53\bin&gt;service.bat install</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="安装成功提示"><a href="#安装成功提示" class="headerlink" title="安装成功提示"></a>安装成功提示</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Installing the service &#x27;Tomcat8&#x27; ...</span><br><span class="line">Using CATALINA_HOME:    &quot;D:\apache-tomcat-8.5.53&quot;</span><br><span class="line">Using CATALINA_BASE:    &quot;D:\apache-tomcat-8.5.53&quot;</span><br><span class="line">Using JAVA_HOME:        &quot;D:\Java\jdk1.8.0_221&quot;</span><br><span class="line">Using JRE_HOME:         &quot;D:\Java\jdk1.8.0_221\jre&quot;</span><br><span class="line">Using JVM:              &quot;D:\Java\jdk1.8.0_221\jre\bin\server\jvm.dll&quot;</span><br><span class="line">The service &#x27;Tomcat8&#x27; has been installed.</span><br></pre></td></tr></table></figure>
+
+<h2 id="启动Tomcat"><a href="#启动Tomcat" class="headerlink" title="启动Tomcat"></a>启动Tomcat</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">D:\apache-tomcat-8.5.53\bin&gt;net start Tomcat8</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="配置开机启动"><a href="#配置开机启动" class="headerlink" title="配置开机启动"></a>配置开机启动</h2><p>进入系统服务管理找到Tomcat8属性设置自启动，或者通过bin目录下的tomcat8w.exe设置自动启动。</p>
+]]></content>
+      <categories>
+        <category>笔记</category>
+      </categories>
+      <tags>
+        <tag>Tomcat</tag>
+        <tag>绿色版</tag>
       </tags>
   </entry>
   <entry>
