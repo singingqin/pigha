@@ -1,0 +1,635 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>解决“索引超出了数组界限”</title>
+    <url>/2021/05/31/Config-Array-Out/</url>
+    <content><![CDATA[<p>今天踩了个坑。周末加班搞了个异构数据同步的中间件工具，本地调试编译好后部署到正式环境，一直提示：</p>
+<blockquote>
+<p>索引超出了数组界限</p>
+</blockquote>
+<p>开始根据提示检查源代码里数组看哪个数组超出了个数，但我自己电脑上都是运行正常的，怎么到了其它电脑上就出现这个异常提示？所以肯定不是数组超出个数的原因。</p>
+<p>而且它是第一个数组就提示异常，我就怀疑可能是它读取不到配置文件里的参数导致，最后还真是这么一回事。搜索了很多资料，终于找到一个对头的原因，很简单，错误也很低级。</p>
+<blockquote>
+<p>就是配置文件ini文件首行要留空</p>
+</blockquote>
+<p>我Windows 10首行不留空可以正常读取识别，但服务器Windows Server 2012和2008都不认。</p>
+]]></content>
+      <categories>
+        <category>笔记</category>
+      </categories>
+      <tags>
+        <tag>中间件</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hexo、GitHub、Mongodb、Vercel、Twikoo搭建免费博客</title>
+    <url>/2021/12/05/Hexo-Github-Mongodb-Vercel-Twikoo/</url>
+    <content><![CDATA[<p>很久之前在阿里云撸了几年88元一年的虚拟机，到期后续费太贵了，对于一个不是生产力的网站来说，如果续费就有点飘了，家里又没有矿，没法任性。</p>
+<p>然后发现腾讯云的虚拟机也对新用户优惠，又撸了两年。年初的时候到期了，但一直没有去续费。一是前段时间都比较忙，忘记了；二是续费太贵了。</p>
+<p>就这样，几年的琐琐碎碎就没有了。</p>
+<p>只是可惜了备案，重新再备案已经不再想了，对于网站的备案真的是一言难尽！</p>
+<p>有空了，又想折腾一下。于是就有了这个新的网站。</p>
+<p>不用备案，除了域名，都是白嫖的。</p>
+<p>采用Hexo、Github、Mongodb、Vercel、Twikoo免费搭建，使用的<a href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a>主题。</p>
+<h1 id="一、Hexo-Github-Pages搭建免费博客"><a href="#一、Hexo-Github-Pages搭建免费博客" class="headerlink" title="一、Hexo+Github Pages搭建免费博客"></a>一、Hexo+Github Pages搭建免费博客</h1><p>以前一直使用的WordPress搭建博客，挺好用的，主题模板和插件都非常多，但是唯一不好的就是越来越臃肿，拖慢了访问速度。</p>
+<p>而且没法撸到适合WordPress的免费环境和MySQL。找来找去，最后就决定了使用Hexo+Github Pages搭建。</p>
+<p>具体的搭建步骤，我是参考了知乎上这篇文章完成的，在此就不多说了。</p>
+<blockquote>
+<p>参考文章：<a href="https://zhuanlan.zhihu.com/p/60578464">使用 Hexo+GitHub 搭建个人免费博客教程（小白向）</a></p>
+</blockquote>
+<h1 id="二、Twikoo评论插件"><a href="#二、Twikoo评论插件" class="headerlink" title="二、Twikoo评论插件"></a>二、Twikoo评论插件</h1><p>之前博客搭建好后，一直没有开启评论。现在有空了就折腾一下，根据Twikoo作者的说明文档很快就能搭建好。</p>
+<p>原本可以使用腾讯的免费优惠套餐，但现在没有这个免费套餐了。由于基础版 1 已从 0 元涨价至 6.9 元 / 月，需要付费购买环境才能部署。</p>
+<p>不过免费的还可以用到Mongodb和Vercel来部署完成，只是国内的访问速度比不过腾讯云。</p>
+<blockquote>
+<p>参考文章：<a href="https://twikoo.js.org/quick-start.html#%E4%BA%91%E5%87%BD%E6%95%B0%E9%83%A8%E7%BD%B2">Twikoo云函数部署操作说明</a></p>
+</blockquote>
+<p>需要注意的是，要用到Github的仓库，先在Github创建好一个分支仓库。</p>
+<h1 id="三、将Hexo部署到Vercel"><a href="#三、将Hexo部署到Vercel" class="headerlink" title="三、将Hexo部署到Vercel"></a>三、将Hexo部署到Vercel</h1><p>误打误撞，发现Hexo可以部署到Vercel。</p>
+<p>GitHub Pages有时受DNS污染，无法访问。</p>
+<p>Vercel在港台有 CDN 节点。所以要比GitHub要更快和稳定一些。</p>
+<p>实际还是要使用到GitHub才行，因为Vercel只是一个静态网页部署网站，并不托管代码。</p>
+<p>我们通过 <strong>GitHub 来托管 hexo deploy 生成的网页文件，并设置自动导入。当你的源代码仓库有变动后，Vercel 会第一时间检测到并重新部署网站，部署完成后会通过邮件提醒。</strong></p>
+<blockquote>
+<p>参考文章：<a href="https://snow.js.org/hexo-vercel/">Hexo：将你的博客部署到 Vercel</a></p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>笔记</category>
+      </categories>
+      <tags>
+        <tag>Hexo</tag>
+        <tag>Github</tag>
+        <tag>Mongodb</tag>
+        <tag>Vercel</tag>
+        <tag>Twikoo</tag>
+        <tag>网站</tag>
+        <tag>博客</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Nginx配置详解</title>
+    <url>/2021/06/05/Nginx-Config-ReadMe/</url>
+    <content><![CDATA[<p><img src="https://p1-tt.byteimg.com/origin/pgc-image/2a700e0812404381b24db87505f22a53?from=pc" alt="程序员安全规范：安全无小事，安全防范从nginx配置做起"></p>
+<h1 id="隐藏版本号"><a href="#隐藏版本号" class="headerlink" title="隐藏版本号"></a><strong>隐藏版本号</strong></h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">http &#123;</span><br><span class="line"> server_tokens off;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>经常会有针对某个版本的nginx安全漏洞出现，隐藏nginx版本号就成了主要的安全优化手段之一，当然最重要的是及时升级修复漏洞</p>
+<h1 id="开启HTTPS"><a href="#开启HTTPS" class="headerlink" title="开启HTTPS"></a><strong>开启HTTPS</strong></h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">server &#123;</span><br><span class="line"> listen 443;</span><br><span class="line"> server_name ops-coffee.cn;</span><br><span class="line"> </span><br><span class="line"> ssl on;</span><br><span class="line"> ssl_certificate /etc/nginx/server.crt;</span><br><span class="line"> ssl_certificate_key /etc/nginx/server.key;</span><br><span class="line"> ssl_protocols TLSv1 TLSv1.1 TLSv1.2;</span><br><span class="line"> ssl_ciphers HIGH:!aNULL:!MD5;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>ssl on：</strong> 开启https</li>
+<li><strong>ssl_certificate：</strong> 配置nginx ssl证书的路径</li>
+<li><strong>ssl_certificate_key：</strong> 配置nginx ssl证书key的路径</li>
+<li><strong>ssl_protocols：</strong> 指定客户端建立连接时使用的ssl协议版本，如果不需要兼容TSLv1，直接去掉即可</li>
+<li><strong>ssl_ciphers：</strong> 指定客户端连接时所使用的加密算法，你可以再这里配置更高安全的算法</li>
+</ul>
+<h1 id="添加黑白名单"><a href="#添加黑白名单" class="headerlink" title="添加黑白名单"></a><strong>添加黑白名单</strong></h1><p><strong>白名单配置</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">location /admin/ &#123;</span><br><span class="line"> allow 192.168.1.0/24;</span><br><span class="line"> deny all;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上边表示只允许192.168.1.0/24网段的主机访问，拒绝其他所有</p>
+<p>也可以写成黑名单的方式禁止某些地址访问，允许其他所有，例如</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">location /ops-coffee/ &#123;</span><br><span class="line"> deny 192.168.1.0/24;</span><br><span class="line"> allow all;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>更多的时候客户端请求会经过层层代理，我们需要通过$http_x_forwarded_for来进行限制，可以这样写</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">set $allow false;</span><br><span class="line">if ($http_x_forwarded_for = &quot;211.144.204.2&quot;) &#123; set $allow true; &#125;</span><br><span class="line">if ($http_x_forwarded_for ~ &quot;108.2.66.[89]&quot;) &#123; set $allow true; &#125;</span><br><span class="line">if ($allow = false) &#123; return 404; &#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="添加账号认证"><a href="#添加账号认证" class="headerlink" title="添加账号认证"></a><strong>添加账号认证</strong></h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">server &#123;</span><br><span class="line"> location / &#123;</span><br><span class="line"> auth_basic &quot;please input user&amp;passwd&quot;;</span><br><span class="line"> auth_basic_user_file key/auth.key;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="限制请求方法"><a href="#限制请求方法" class="headerlink" title="限制请求方法"></a><strong>限制请求方法</strong></h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">if ($request_method !~ ^(GET|POST)$ ) &#123;</span><br><span class="line"> return 405;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>$request_method能够获取到请求nginx的method</p>
+<p>配置只允许GET\POST方法访问，其他的method返回405</p>
+<h1 id="拒绝User-Agent"><a href="#拒绝User-Agent" class="headerlink" title="拒绝User-Agent"></a><strong>拒绝User-Agent</strong></h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">if ($http_user_agent ~* LWP::Simple|BBBike|wget|curl) &#123;</span><br><span class="line"> return 444;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>可能有一些不法者会利用wget/curl等工具扫描我们的网站，我们可以通过禁止相应的user-agent来简单的防范</p>
+<p>Nginx的444状态比较特殊，如果返回444那么客户端将不会收到服务端返回的信息，就像是网站无法连接一样</p>
+<h1 id="限制上传文件大小"><a href="#限制上传文件大小" class="headerlink" title="限制上传文件大小"></a>限制上传文件大小</h1><p>Nginx默认上传文件大小是1M，需要增大的话。</p>
+<p>在nginx.conf中增加一句：<strong>client_max_body_size 30m;</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">        listen       80;</span><br><span class="line">        server_name  localhost;</span><br><span class="line">		client_max_body_size 30M;</span><br><span class="line"></span><br><span class="line">		location /web &#123;</span><br><span class="line">            alias   D:/web;</span><br><span class="line">            index main.html;			</span><br><span class="line">        &#125;</span><br><span class="line">		location /web/service &#123;</span><br><span class="line">            proxy_pass   http://192.168.1.188:8080/service;		</span><br><span class="line">        &#125;</span><br><span class="line">		location /web/service/upload &#123;</span><br><span class="line">            proxy_pass   http://192.168.1.188/upload;</span><br><span class="line">        &#125;		</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+
+<p><strong>重启即可</strong></p>
+<p>30m表示最大上传30M，需要多大设置多大。</p>
+<h1 id="图片防盗链"><a href="#图片防盗链" class="headerlink" title="图片防盗链"></a><strong>图片防盗链</strong></h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">location /images/ &#123;</span><br><span class="line"> valid_referers none blocked www.ops-coffee.cn ops-coffee.cn;</span><br><span class="line"> if ($invalid_referer) &#123;</span><br><span class="line"> return 403;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>valid_referers：</strong> 验证referer，其中none允许referer为空，blocked允许不带协议的请求，除了以上两类外仅允许referer为<a href="http://www.ops-coffee.cn或ops-coffee.cn时访问images下的图片资源,否则返回403/">www.ops-coffee.cn或ops-coffee.cn时访问images下的图片资源，否则返回403</a></p>
+<p>当然你也可以给不符合referer规则的请求重定向到一个默认的图片，比如下边这样</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">location /images/ &#123;</span><br><span class="line"> valid_referers blocked www.ops-coffee.cn ops-coffee.cn</span><br><span class="line"> if ($invalid_referer) &#123;</span><br><span class="line"> rewrite ^/images/.*\.(gif|jpg|jpeg|png)$ /static/qrcode.jpg last;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="控制并发连接数"><a href="#控制并发连接数" class="headerlink" title="控制并发连接数"></a><strong>控制并发连接数</strong></h1><p>可以通过<br>ngx_http_limit_conn_module模块限制一个IP的并发连接数</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">http &#123;</span><br><span class="line"> limit_conn_zone $binary_remote_addr zone=ops:10m;</span><br><span class="line"> server &#123;</span><br><span class="line"> listen 80;</span><br><span class="line"> server_name ops-coffee.cn;</span><br><span class="line"> </span><br><span class="line"> root /home/project/webapp;</span><br><span class="line"> index index.html;</span><br><span class="line"> location / &#123;</span><br><span class="line"> limit_conn ops 10;</span><br><span class="line"> &#125;</span><br><span class="line"> access_log /tmp/nginx_access.log main;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>limit_conn_zone：</strong> 设定保存各个键(例如$binary_remote_addr)状态的共享内存空间的参数，zone=空间名字:大小</p>
+<p>大小的计算与变量有关，例如$binary_remote_addr变量的大小对于记录IPV4地址是固定的4 bytes，而记录IPV6地址时固定的16 bytes，存储状态在32位平台中占用32或者64 bytes，在64位平台中占用64 bytes。1m的共享内存空间可以保存大约3.2万个32位的状态，1.6万个64位的状态</p>
+<p><strong>limit_conn：</strong> 指定一块已经设定的共享内存空间(例如name为ops的空间)，以及每个给定键值的最大连接数</p>
+<p>上边的例子表示同一IP同一时间只允许10个连接</p>
+<p>当有多个limit_conn指令被配置时，所有的连接数限制都会生效</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">http &#123;</span><br><span class="line"> limit_conn_zone $binary_remote_addr zone=ops:10m;</span><br><span class="line"> limit_conn_zone $server_name zone=coffee:10m;</span><br><span class="line"> </span><br><span class="line"> server &#123;</span><br><span class="line"> listen 80;</span><br><span class="line"> server_name ops-coffee.cn;</span><br><span class="line"> </span><br><span class="line"> root /home/project/webapp;</span><br><span class="line"> index index.html;</span><br><span class="line"> </span><br><span class="line"> location / &#123;</span><br><span class="line"> limit_conn ops 10;</span><br><span class="line"> limit_conn coffee 2000;</span><br><span class="line"> &#125;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上边的配置不仅会限制单一IP来源的连接数为10，同时也会限制单一虚拟服务器的总连接数为2000</p>
+<h1 id="缓冲区溢出攻击"><a href="#缓冲区溢出攻击" class="headerlink" title="缓冲区溢出攻击"></a><strong>缓冲区溢出攻击</strong></h1><p><strong>缓冲区溢出攻击</strong> 是通过将数据写入缓冲区并超出缓冲区边界和重写内存片段来实现的，限制缓冲区大小可有效防止</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">client_body_buffer_size 1K;</span><br><span class="line">client_header_buffer_size 1k;</span><br><span class="line">client_max_body_size 1k;</span><br><span class="line">large_client_header_buffers 2 1k;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>client_body_buffer_size：</strong> 默认8k或16k，表示客户端请求body占用缓冲区大小。如果连接请求超过缓存区指定的值，那么这些请求实体的整体或部分将尝试写入一个临时文件。</li>
+<li><strong>client_header_buffer_size：</strong> 表示客户端请求头部的缓冲区大小。绝大多数情况下一个请求头不会大于1k，不过如果有来自于wap客户端的较大的cookie它可能会大于 1k，Nginx将分配给它一个更大的缓冲区，这个值可以在large_client_header_buffers里面设置</li>
+<li><strong>client_max_body_size：</strong> 表示客户端请求的最大可接受body大小，它出现在请求头部的Content-Length字段， 如果请求大于指定的值，客户端将收到一个”Request Entity Too Large” (413)错误，通常在上传文件到服务器时会受到限制</li>
+<li><strong>large_client_header_buffers</strong> 表示一些比较大的请求头使用的缓冲区数量和大小，默认一个缓冲区大小为操作系统中分页文件大小，通常是4k或8k，请求字段不能大于一个缓冲区大小，如果客户端发送一个比较大的头，nginx将返回”Request URI too large” (414)，请求的头部最长字段不能大于一个缓冲区，否则服务器将返回”Bad request” (400)</li>
+</ul>
+<p><strong>同时需要修改几个超时时间的配置</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">client_body_timeout 10;</span><br><span class="line">client_header_timeout 10;</span><br><span class="line">keepalive_timeout 5 5;</span><br><span class="line">send_timeout 10;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>client_body_timeout：</strong> 表示读取请求body的超时时间，如果连接超过这个时间而客户端没有任何响应，Nginx将返回”Request time out” (408)错误</li>
+<li><strong>client_header_timeout：</strong> 表示读取客户端请求头的超时时间，如果连接超过这个时间而客户端没有任何响应，Nginx将返回”Request time out” (408)错误</li>
+<li><strong>keepalive_timeout：</strong> 参数的第一个值表示客户端与服务器长连接的超时时间，超过这个时间，服务器将关闭连接，可选的第二个参数参数表示Response头中Keep-Alive: timeout=time的time值，这个值可以使一些浏览器知道什么时候关闭连接，以便服务器不用重复关闭，如果不指定这个参数，nginx不会在应Response头中发送Keep-Alive信息</li>
+<li><strong>send_timeout：</strong> 表示发送给客户端应答后的超时时间，Timeout是指没有进入完整established状态，只完成了两次握手，如果超过这个时间客户端没有任何响应，nginx将关闭连接</li>
+</ul>
+<h1 id="Header头设置"><a href="#Header头设置" class="headerlink" title="Header头设置"></a><strong>Header头设置</strong></h1><p>通过以下设置可有效防止XSS攻击</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">add_header X-Frame-Options &quot;SAMEORIGIN&quot;;</span><br><span class="line">add_header X-XSS-Protection &quot;1; mode=block&quot;;</span><br><span class="line">add_header X-Content-Type-Options &quot;nosniff&quot;;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>X-Frame-Options：</strong> 响应头表示是否允许浏览器加载frame等属性，有三个配置DENY禁止任何网页被嵌入,SAMEORIGIN只允许本网站的嵌套,ALLOW-FROM允许指定地址的嵌套</li>
+<li><strong>X-XSS-Protection：</strong> 表示启用XSS过滤（禁用过滤为X-XSS-Protection: 0），mode=block表示若检查到XSS攻击则停止渲染页面</li>
+<li><strong>X-Content-Type-Options：</strong> 响应头用来指定浏览器对未指定或错误指定Content-Type资源真正类型的猜测行为，nosniff 表示不允许任何猜测</li>
+</ul>
+<p>在通常的请求响应中，浏览器会根据Content-Type来分辨响应的类型，但当响应类型未指定或错误指定时，浏览会尝试启用MIME-sniffing来猜测资源的响应类型，这是非常危险的</p>
+<p>例如一个.jpg的图片文件被恶意嵌入了可执行的js代码，在开启资源类型猜测的情况下，浏览器将执行嵌入的js代码，可能会有意想不到的后果</p>
+<h1 id="另外还有几个关于请求头的安全配置需要注意"><a href="#另外还有几个关于请求头的安全配置需要注意" class="headerlink" title="另外还有几个关于请求头的安全配置需要注意"></a><strong>另外还有几个关于请求头的安全配置需要注意</strong></h1><p><strong>Content-Security-Policy：</strong> 定义页面可以加载哪些资源，</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">add_header Content-Security-Policy &quot;default-src &#x27;self&#x27;&quot;;</span><br></pre></td></tr></table></figure>
+
+<p>上边的配置会限制所有的外部资源，都只能从当前域名加载，其中default-src定义针对所有类型资源的默认加载策略，self允许来自相同来源的内容</p>
+<p><strong>Strict-Transport-Security：</strong> 会告诉浏览器用HTTPS协议代替HTTP来访问目标站点</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">add_header Strict-Transport-Security &quot;max-age=31536000; includeSubDomains&quot;;</span><br></pre></td></tr></table></figure>
+
+<p>上边的配置表示当用户第一次访问后，会返回一个包含了Strict-Transport-Security响应头的字段，这个字段会告诉浏览器，在接下来的31536000秒内，当前网站的所有请求都使用https协议访问，参数includeSubDomains是可选的，表示所有子域名也将采用同样的规则。</p>
+]]></content>
+      <categories>
+        <category>笔记</category>
+      </categories>
+      <tags>
+        <tag>Nginx</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>PSElements2021智能修图，超乎想象</title>
+    <url>/2021/05/30/PS-Elements-2021/</url>
+    <content><![CDATA[<blockquote>
+<p>Photoshop Elements功能与Photoshop差不多，同样拥有强大的照片编辑功能，但是Photoshop Elements2021主打的是智能照片处理功能，软件内置的Adobe Sensei AI 驱动技术能够帮助用户快速的对图片进行处理，它能够帮助用户一键式处理图片，图片处理的速度也会比PS更快。</p>
+</blockquote>
+<h2 id="智能抠图，一键换背景"><a href="#智能抠图，一键换背景" class="headerlink" title="智能抠图，一键换背景"></a>智能抠图，一键换背景</h2><p><img src="https://p3-tt.byteimg.com/origin/pgc-image/ef83b40b96db48739d873ae48d7cfc1b?from=pc" alt="修图操作更专业的全新人工智能PSElements2021，功能效果秒杀PS"></p>
+<h2 id="智能完美移除图片对象"><a href="#智能完美移除图片对象" class="headerlink" title="智能完美移除图片对象"></a>智能完美移除图片对象</h2><p><img src="https://p6-tt.byteimg.com/origin/pgc-image/10eeb291165f45c58ebe5f596e19eca5?from=pc" alt="修图操作更专业的全新人工智能PSElements2021，功能效果秒杀PS"></p>
+<h2 id="给图片智能调色"><a href="#给图片智能调色" class="headerlink" title="给图片智能调色"></a>给图片智能调色</h2><p><img src="https://p1-tt.byteimg.com/origin/pgc-image/17342dc3c5a341fe9c8d68f9846a3087?from=pc" alt="修图操作更专业的全新人工智能PSElements2021，功能效果秒杀PS"></p>
+<h2 id="智能磨皮美颜"><a href="#智能磨皮美颜" class="headerlink" title="智能磨皮美颜"></a>智能磨皮美颜</h2><p><img src="https://p3-tt.byteimg.com/origin/pgc-image/065ec61147544a088bd503746423e9c0?from=pc" alt="修图操作更专业的全新人工智能PSElements2021，功能效果秒杀PS"></p>
+<h2 id="一键添加图片艺术特效"><a href="#一键添加图片艺术特效" class="headerlink" title="一键添加图片艺术特效"></a>一键添加图片艺术特效</h2><p><img src="https://p3-tt.byteimg.com/origin/pgc-image/2bdb9cb58d574b899631fee2b6940064?from=pc" alt="修图操作更专业的全新人工智能PSElements2021，功能效果秒杀PS"></p>
+<h2 id="将照片智能转换成图画"><a href="#将照片智能转换成图画" class="headerlink" title="将照片智能转换成图画"></a>将照片智能转换成图画</h2><p><img src="https://p1-tt.byteimg.com/origin/pgc-image/6e8b18df3965452c8c71cbc9ac08d194?from=pc" alt="修图操作更专业的全新人工智能PSElements2021，功能效果秒杀PS"></p>
+<h2 id="一键添加运动模糊"><a href="#一键添加运动模糊" class="headerlink" title="一键添加运动模糊"></a>一键添加运动模糊</h2><p><img src="https://p1-tt.byteimg.com/origin/pgc-image/d7ae7a4db8c944c8912146d90c3865f5?from=pc" alt="修图操作更专业的全新人工智能PSElements2021，功能效果秒杀PS"></p>
+<h2 id="一键添加背景模糊"><a href="#一键添加背景模糊" class="headerlink" title="一键添加背景模糊"></a>一键添加背景模糊</h2><p><img src="https://p3-tt.byteimg.com/origin/pgc-image/cbbe19777ba34971af30c905a8f69b9b?from=pc" alt="修图操作更专业的全新人工智能PSElements2021，功能效果秒杀PS"></p>
+<h2 id="智能拼接图片："><a href="#智能拼接图片：" class="headerlink" title="智能拼接图片："></a>智能拼接图片：</h2><p><img src="https://p1-tt.byteimg.com/origin/pgc-image/e7b532e2186f460eaa69e21decd7f49a?from=pc" alt="修图操作更专业的全新人工智能PSElements2021，功能效果秒杀PS"></p>
+<h2 id="其他强大的功能效果："><a href="#其他强大的功能效果：" class="headerlink" title="其他强大的功能效果："></a>其他强大的功能效果：</h2><p><img src="https://p1-tt.byteimg.com/origin/pgc-image/a55dbff417de430598c5dc17f5eb769a?from=pc" alt="修图操作更专业的全新人工智能PSElements2021，功能效果秒杀PS"></p>
+<p>当然，PSElements2021不仅可以智能地帮助喜欢摄影修图的小伙伴们设计制作图片。而且，还支持我们自定义修改细节，不得不说确实是一款超级专业的修图黑科技软件。</p>
+]]></content>
+      <categories>
+        <category>应用软件</category>
+      </categories>
+      <tags>
+        <tag>修图</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>莹莹姐2021春季美术作品集（陆续更新中）</title>
+    <url>/2021/05/23/arts2021spring/</url>
+    <content><![CDATA[<h3 id="春天开往盛夏的《动3838次列车》"><a href="#春天开往盛夏的《动3838次列车》" class="headerlink" title="春天开往盛夏的《动3838次列车》"></a>春天开往盛夏的《动3838次列车》</h3><p><img src="https://i.loli.net/2021/05/23/B5p6Om9hzaFHPVI.jpg"></p>
+<h3 id="第二次竹影桥写生"><a href="#第二次竹影桥写生" class="headerlink" title="第二次竹影桥写生"></a>第二次竹影桥写生</h3><p><img src="https://i.loli.net/2021/05/23/Ozm4HJSPsut9VWb.jpg"><br><img src="https://i.loli.net/2021/05/23/94GPicUH3aMZTJk.jpg"></p>
+<h3 id="丹顶鹤"><a href="#丹顶鹤" class="headerlink" title="丹顶鹤"></a>丹顶鹤</h3><p><img src="https://i.loli.net/2021/05/23/13wI8VGjFKkW2yL.jpg"></p>
+<h3 id="黑白动植物写生"><a href="#黑白动植物写生" class="headerlink" title="黑白动植物写生"></a>黑白动植物写生</h3><p><img src="https://i.loli.net/2021/05/23/spFiQCDhxBOZtHn.jpg"><br><img src="https://i.loli.net/2021/05/23/lIg7DOdfyGNi8nX.jpg"><br><img src="https://i.loli.net/2021/05/23/I5AZm8LfosetbCl.jpg"><br><img src="https://i.loli.net/2021/05/23/7lMHoxuwY614TsB.jpg"><br><img src="https://i.loli.net/2021/05/23/VMweyLp3SDl7u1I.jpg"><br><img src="https://i.loli.net/2021/05/23/yh4m532PaRViCzT.jpg"><br><img src="https://i.loli.net/2021/05/23/UYcdryzJ3mQZEuI.jpg"></p>
+<h3 id="免费为三品王打了个广告"><a href="#免费为三品王打了个广告" class="headerlink" title="免费为三品王打了个广告"></a>免费为三品王打了个广告</h3><p><img src="https://i.loli.net/2021/05/23/oVS63gjuUEBHtTw.jpg"></p>
+]]></content>
+      <categories>
+        <category>课外</category>
+      </categories>
+      <tags>
+        <tag>画画</tag>
+        <tag>作品集</tag>
+        <tag>美术</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>人民日报推荐了36部非常适合孩子看的纪录片</title>
+    <url>/2021/06/04/children-documentary-film/</url>
+    <content><![CDATA[<blockquote>
+<p>人民日报推荐了36部非常适合孩子看的纪录片，每一部都值得反复观看。纪录片就像一扇窗户，带着孩子看遍世界各地，上至宇宙，下至深海，让孩子领略到生命的奇妙、宇宙的宏大。</p>
+</blockquote>
+<p>这36部纪录片中，有大自然方面的，比如《帝企鹅日记》、《迁徙的鸟》等，孩子在观看的时候常常被小动物的蠢萌行为逗得哈哈大笑，也常常被生命的顽强感动，从而更加敬畏生命；</p>
+<p>也有人文方面的，比如《故宫》、《大唐西游记》，让孩子们从小了解我们祖国的文化历史，了解我们生长的这片土地，增强孩子们的爱国之情和归属感。</p>
+<blockquote>
+<p>人民日报选取的这36部纪录片个个都是经典，值得我们一看再看。周末在家的日子，准备一点小零食，泡上一壶茶，坐下来与孩子一起看一集纪录片，也是很难得的休闲亲子时光呢。</p>
+</blockquote>
+<h1 id="《帝企鹅日记》"><a href="#《帝企鹅日记》" class="headerlink" title="《帝企鹅日记》"></a>《帝企鹅日记》</h1><blockquote>
+<p>该片获得第78届奥斯卡金像奖最佳纪录长片奖。在这部电影里，一向给人滑稽、可爱等印象的帝企鹅为了繁殖表现出了不为人知的坚强。几百公里的长途跋涉、沿路虎视眈眈的天敌、恶劣无常的天气……生命从来没有如此艰难过，生命，也从来没有如此有尊严。</p>
+</blockquote>
+<p><img src="https://i.loli.net/2021/06/04/agMnFbSvOoPNYEy.jpg"></p>
+<p><strong>导演：</strong>吕克·雅克 演员：查尔斯·贝尔林 罗曼娜·波琳热 摩根·弗里曼 格斯塔·埃克曼 石田光 戴立忍 神木隆之介 大泽隆夫 苏菲·格拉宝 儒勒·斯楚克</p>
+<p><strong>简介：</strong>这是一部真实反映企鹅生活的电影。南极大陆的北部气候温和，食物充足；而南部则终年覆雪、气候寒冷，食物短缺。但南部也有其好处，那就是这里生态稳定，没有天敌的追击。为了让企鹅宝宝健康成长，企鹅爸爸妈妈每年都会从北部来到南部孵化小企鹅蛋。</p>
+<p>企鹅爸爸和企鹅妈妈轮流进行孵蛋工作，另一方则不远万里去找寻食物。途中的艰辛任何人都难以承受，而柔弱的企鹅们则每年都这样往复进行着这项艰辛的任务。 　　影片所展现的顽强的生命力发人深省。</p>
+<blockquote>
+<p><a href="https://v.qq.com/x/cover/l2ws45qea15w9ht/g00255qopm6.html">第1期：帝企鹅日记（原声版）</a></p>
+<p><a href="https://v.qq.com/x/cover/l2ws45qea15w9ht/m0013njsfcv.html">第2期：帝企鹅日记（普通话版）</a></p>
+</blockquote>
+<blockquote>
+<p><a href="https://v.qq.com/x/cover/a7ndbfg8ytpwhmq.html">帝企鹅日记2：召唤</a></p>
+</blockquote>
+<h1 id="《微观世界》"><a href="#《微观世界》" class="headerlink" title="《微观世界》"></a>《微观世界》</h1><blockquote>
+<p>微观下的虫子世界，带给观众的除了视觉的震撼，还有自然世界无法向人类诉说的道理。当你近距离仔细察看这个时间时，你会发现原来毛毛虫的毛这么光滑；相互依偎的蜗牛温馨得赚人眼泪；蜘蛛会在水下用一个小气泡作为自己的餐厅；天牛就像公牛一样在互相较劲……</p>
+</blockquote>
+<p><strong>导演：</strong>克劳德·纽利迪萨尼 玛丽·佩莱诺 演员：雅克·贝汉 克里斯汀·斯科特·托马斯</p>
+<p><strong>简介：</strong>本片无以伦比的摄影技术，独具匠心的拍摄角度，将森林下、草丛下的世界无数倍放大到你的面前，昆虫、草叶、水滴无不纤毫毕现。竟成为壮丽的奇观。</p>
+<p>本片获得第二十二届凯撒电影节最佳摄影和最佳剪辑奖。你会惊讶于在我们的脚下，竟有这样一个世界存在。这是黎明时分，在地球的某一处隐藏着星球般巨大的世界。茂草变成了森林。小石头变像高山。小水滴形同汪洋大海。时间以不同的方式流逝。一小时就像过了一天，一天像过了一季，一季像过了一生。想要探究这个世界。我们须先保持静默。倾听和观赏这奇迹。</p>
+<blockquote>
+<p><a href="https://v.qq.com/x/cover/mhtvop4w9dlw2u1/h0027f4gqns.html?spm=a2h0c.8166622.PhoneSokuProgram_1.3">腾讯视频付费播放：微观世界</a></p>
+</blockquote>
+<h1 id="《美丽中国》"><a href="#《美丽中国》" class="headerlink" title="《美丽中国》"></a>《美丽中国》</h1><blockquote>
+<p>中国，这片古老而又神奇的土地，囊括了多种特质的地貌，哺育这各族儿女，也孕育着各类珍奇野兽，奇花异草。去云南的热带雨林，寻找亚洲野象、滇金丝猴；来到青藏高原，奔赴内蒙草地、攀爬山脉。眺望西部边陲。这里，是你我熟悉又陌生的美丽中国。</p>
+</blockquote>
+<p><strong>导演：</strong>Phil Chapman</p>
+<p><strong>简介：</strong>《美丽中国》是中国中央电视台和英国广播公司第一次联合摄制的作品，拍摄了中国56多个国家级野生动植物和风景保护区、86种中国珍奇野生动植物和30多个民族生活故事，展现中国自然人文景观。历时4年拍摄，使用航拍、红外、高速、延时和水下等先进摄影技术，记录了大量珍贵、精彩的画面。</p>
+<p>《美丽中国》分为《锦绣华南》、《云翔天边》、《神奇高原》、《风雪塞外》、《沃土中原》、《潮涌海岸》六集（BBC英文版的名称对应为《富饶华南》、《彩云之南》、《青藏高原》、《长城以外》、《龙之疆域》、《喧闹海岸》）；全片拍摄中国50多个国家级野生动植物和风景保护区、86种中国珍奇野生动植物和30多个民族生活故事，展现中国自然人文景观。</p>
+<blockquote>
+<p><a href="https://tv.cctv.com/2017/08/21/VIDElliLDcfRO2Ahnbe0Ylvl170821.shtml?spm=a2h0c.8166622.PhoneSokuProgram_2.dselectbutton_6">第1期: 《精彩放送》 美丽中国 第一集 锦绣华南</a></p>
+</blockquote>
+<blockquote>
+<p><a href="https://tv.cctv.com/2017/08/21/VIDEHhnmav6IHdDFA4j2zbTk170821.shtml?spm=a2h0c.8166622.PhoneSokuProgram_2.dselectbutton_5">第2期: 《寰宇万象》 美丽中国 第二集 云翔天边</a></p>
+</blockquote>
+<blockquote>
+<p><a href="https://tv.cctv.com/2017/08/21/VIDEonAt6N581JTZks0GZUmJ170821.shtml?spm=a2h0c.8166622.PhoneSokuProgram_2.dselectbutton_4">第3期: 《精彩放送》 美丽中国 第三集 神奇高原</a></p>
+</blockquote>
+<blockquote>
+<p><a href="https://tv.cctv.com/2017/08/21/VIDEw6XVYimStuZ7YaAbdPVR170821.shtml?spm=a2h0c.8166622.PhoneSokuProgram_2.dselectbutton_3">第4期: 《寰宇万象》 美丽中国 第四集 风雪塞外</a></p>
+</blockquote>
+<blockquote>
+<p><a href="https://tv.cctv.com/2017/08/21/VIDEFxfgoZhlqXVzWcz9tVM3170821.shtml?spm=a2h0c.8166622.PhoneSokuProgram_2.dselectbutton_2">第5期: 《精彩放送》 美丽中国 第五集 沃土中原</a></p>
+</blockquote>
+<blockquote>
+<p><a href="https://tv.cctv.com/2017/08/21/VIDEaQXI76aumZUulFc0W7rr170821.shtml?spm=a2h0c.8166622.PhoneSokuProgram_2.dselectbutton_1">第6期: 《寰宇万象》 美丽中国 第六集 潮涌两岸</a></p>
+</blockquote>
+<h1 id="《亚马逊萌猴奇遇记》"><a href="#《亚马逊萌猴奇遇记》" class="headerlink" title="《亚马逊萌猴奇遇记》"></a>《亚马逊萌猴奇遇记》</h1><blockquote>
+<p>从小由人类养大的小卷尾猴因为一次意外坠机来到亚马逊森林，开始了一段奇妙之旅。经过一段时间的颠沛流离，它开始结交到新的小伙伴，相处甚欢。当它遇到人类小女孩用食物引诱打算”驯养“它的时候，小猴又转身离开，回归到属于它自由的大自然族群。</p>
+</blockquote>
+<p><strong>导演：</strong>蒂埃里·拉格贝尔</p>
+<p><strong>简介：</strong>一只小猴子因飞机坠毁独自落入亚马逊丛林中心，他要在丛林中学会生存和保护自己，他需要适应在这未知的世界，神奇的大自然充满精彩，也充斥着敌意…… 　　</p>
+<p>作为失事飞机的幸存者，他是幸运的，但他还是要独自面对大自然的考验：与食肉动物、有毒的植物以及亚马逊丛林的绿色屏障作斗争……</p>
+<blockquote>
+<p><a href="https://www.mgtv.com/b/158174/1827028.html?spm=a2h0c.8166622.PhoneSokuProgram_1.3&cxid=90fdkdqrm">播放：亚马逊萌猴奇遇记</a></p>
+</blockquote>
+<h1 id="《迁徙的鸟》"><a href="#《迁徙的鸟》" class="headerlink" title="《迁徙的鸟》"></a>《迁徙的鸟》</h1><h1 id="《时间的风景》"><a href="#《时间的风景》" class="headerlink" title="《时间的风景》"></a>《时间的风景》</h1><h1 id="《地球脉动》"><a href="#《地球脉动》" class="headerlink" title="《地球脉动》"></a>《地球脉动》</h1><h1 id="《海洋》"><a href="#《海洋》" class="headerlink" title="《海洋》"></a>《海洋》</h1><h1 id="《深蓝》"><a href="#《深蓝》" class="headerlink" title="《深蓝》"></a>《深蓝》</h1><h1 id="《大象进行时》"><a href="#《大象进行时》" class="headerlink" title="《大象进行时》"></a>《大象进行时》</h1><h1 id="《蒙哥》"><a href="#《蒙哥》" class="headerlink" title="《蒙哥》"></a>《蒙哥》</h1><h1 id="《植物私生活》"><a href="#《植物私生活》" class="headerlink" title="《植物私生活》"></a>《植物私生活》</h1><h1 id="《自然世界：大熊猫缔造者》"><a href="#《自然世界：大熊猫缔造者》" class="headerlink" title="《自然世界：大熊猫缔造者》"></a>《自然世界：大熊猫缔造者》</h1><h1 id="《故宫》"><a href="#《故宫》" class="headerlink" title="《故宫》"></a>《故宫》</h1><h1 id="《人类星球》"><a href="#《人类星球》" class="headerlink" title="《人类星球》"></a>《人类星球》</h1><h1 id="《孤猴之岛：马达斯假死》"><a href="#《孤猴之岛：马达斯假死》" class="headerlink" title="《孤猴之岛：马达斯假死》"></a>《孤猴之岛：马达斯假死》</h1><h1 id="《我在故宫修文物》"><a href="#《我在故宫修文物》" class="headerlink" title="《我在故宫修文物》"></a>《我在故宫修文物》</h1><h1 id="《冷血生命》"><a href="#《冷血生命》" class="headerlink" title="《冷血生命》"></a>《冷血生命》</h1><h1 id="《与巨兽同行》"><a href="#《与巨兽同行》" class="headerlink" title="《与巨兽同行》"></a>《与巨兽同行》</h1><h1 id="《捕猎》"><a href="#《捕猎》" class="headerlink" title="《捕猎》"></a>《捕猎》</h1><h1 id="《猫咪物语》"><a href="#《猫咪物语》" class="headerlink" title="《猫咪物语》"></a>《猫咪物语》</h1><h1 id="《萌宠成长记》"><a href="#《萌宠成长记》" class="headerlink" title="《萌宠成长记》"></a>《萌宠成长记》</h1><h1 id="《留住手艺》"><a href="#《留住手艺》" class="headerlink" title="《留住手艺》"></a>《留住手艺》</h1><h1 id="《我们诞生在中国》"><a href="#《我们诞生在中国》" class="headerlink" title="《我们诞生在中国》"></a>《我们诞生在中国》</h1><h1 id="《航拍中国》"><a href="#《航拍中国》" class="headerlink" title="《航拍中国》"></a>《航拍中国》</h1><h1 id="《熊世界》"><a href="#《熊世界》" class="headerlink" title="《熊世界》"></a>《熊世界》</h1><h1 id="《熊猫宝宝》"><a href="#《熊猫宝宝》" class="headerlink" title="《熊猫宝宝》"></a>《熊猫宝宝》</h1><h1 id="《狗的秘密生活》"><a href="#《狗的秘密生活》" class="headerlink" title="《狗的秘密生活》"></a>《狗的秘密生活》</h1><h1 id="《南太平洋》"><a href="#《南太平洋》" class="headerlink" title="《南太平洋》"></a>《南太平洋》</h1><h1 id="《大唐西游记》"><a href="#《大唐西游记》" class="headerlink" title="《大唐西游记》"></a>《大唐西游记》</h1><h1 id="《可爱的动物》"><a href="#《可爱的动物》" class="headerlink" title="《可爱的动物》"></a>《可爱的动物》</h1><h1 id="《汉字五千年》"><a href="#《汉字五千年》" class="headerlink" title="《汉字五千年》"></a>《汉字五千年》</h1><h1 id="《自然世界：海獭的百万宝宝》"><a href="#《自然世界：海獭的百万宝宝》" class="headerlink" title="《自然世界：海獭的百万宝宝》"></a>《自然世界：海獭的百万宝宝》</h1><h1 id="《企鹅群里有特务》"><a href="#《企鹅群里有特务》" class="headerlink" title="《企鹅群里有特务》"></a>《企鹅群里有特务》</h1><h1 id="《超萌动物》"><a href="#《超萌动物》" class="headerlink" title="《超萌动物》"></a>《超萌动物》</h1><h1 id="《森林之歌》"><a href="#《森林之歌》" class="headerlink" title="《森林之歌》"></a>《森林之歌》</h1>]]></content>
+      <categories>
+        <category>课外</category>
+      </categories>
+      <tags>
+        <tag>纪录片</tag>
+        <tag>儿童</tag>
+        <tag>电影</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>绿色版Tomcat8.5开机启动服务配置方法</title>
+    <url>/2021/05/21/hello-world/</url>
+    <content><![CDATA[<p>主要就是添加系统环境变量和注册到服务管理。</p>
+<h2 id="添加系统环境变量Path值"><a href="#添加系统环境变量Path值" class="headerlink" title="添加系统环境变量Path值"></a>添加系统环境变量Path值</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">;D:\apache-tomcat-8.5.53\bin</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="CMD进入bin目录安装服务"><a href="#CMD进入bin目录安装服务" class="headerlink" title="CMD进入bin目录安装服务"></a>CMD进入bin目录安装服务</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cd d:</span><br><span class="line">D:\&gt;cd D:\apache-tomcat-8.5.53\bin</span><br><span class="line">D:\apache-tomcat-8.5.53\bin&gt;service.bat install</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="安装成功提示"><a href="#安装成功提示" class="headerlink" title="安装成功提示"></a>安装成功提示</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Installing the service &#x27;Tomcat8&#x27; ...</span><br><span class="line">Using CATALINA_HOME:    &quot;D:\apache-tomcat-8.5.53&quot;</span><br><span class="line">Using CATALINA_BASE:    &quot;D:\apache-tomcat-8.5.53&quot;</span><br><span class="line">Using JAVA_HOME:        &quot;D:\Java\jdk1.8.0_221&quot;</span><br><span class="line">Using JRE_HOME:         &quot;D:\Java\jdk1.8.0_221\jre&quot;</span><br><span class="line">Using JVM:              &quot;D:\Java\jdk1.8.0_221\jre\bin\server\jvm.dll&quot;</span><br><span class="line">The service &#x27;Tomcat8&#x27; has been installed.</span><br></pre></td></tr></table></figure>
+
+<h2 id="启动Tomcat"><a href="#启动Tomcat" class="headerlink" title="启动Tomcat"></a>启动Tomcat</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">D:\apache-tomcat-8.5.53\bin&gt;net start Tomcat8</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="配置开机启动"><a href="#配置开机启动" class="headerlink" title="配置开机启动"></a>配置开机启动</h2><p>进入系统服务管理找到Tomcat8属性设置自启动，或者通过bin目录下的tomcat8w.exe设置自动启动。</p>
+]]></content>
+      <categories>
+        <category>笔记</category>
+      </categories>
+      <tags>
+        <tag>Tomcat</tag>
+        <tag>绿色版</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Windows下JDK8.0（JDK1.8）环境变量配置</title>
+    <url>/2021/11/23/jdk-1-8-ec/</url>
+    <content><![CDATA[<p>经常要在Windows Server安装配置JDK，目前只能用1.8，做个笔记。</p>
+<p><img src="https://images.idgesg.net/images/article/2019/03/javaworld_jvm_jdk_jre_explainer_java_development_kit_write_3x2_2400x1600_by_idg_oracle_vasabii_gettyimages-100790551-large.3x2.jpg" alt="JDK1.8环境变量配置"></p>
+<p>一、进入环境变量</p>
+<p><img src="https://images2018.cnblogs.com/blog/1468426/201808/1468426-20180818163820381-998111321.png" alt="JDK1.8环境变量配置"></p>
+<p><strong>二、新建JAVA_HOME系统变量</strong></p>
+<p>变量名：JAVA_HOME ，变量值：D:\Java\jdk1.8.0_221</p>
+<p><strong>三、新建CLASSPATH变量</strong><br>变量名：CLASSPATH , 变量值： .;%JAVA_HOME%\lib;%JAVA_HOME%\lib\tools.jar（注意最前面有一点）。</p>
+<p><strong>四、配置系统环境变量Path</strong></p>
+<p>双击Path–&gt;新建–&gt;添加“%JAVA_HOME%\bin”–&gt;将这一行变量上移到最顶端–&gt;完成</p>
+]]></content>
+      <categories>
+        <category>笔记</category>
+      </categories>
+      <tags>
+        <tag>JDK</tag>
+        <tag>java</tag>
+        <tag>环境变量</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>小米Air 13&#39;3 OC引导安装黑苹果macOS Big Sur</title>
+    <url>/2021/06/25/macOS-Big-Sur/</url>
+    <content><![CDATA[<p>上周末，一兄弟打电话来问我会不会安装黑苹果。我跟他说几年前在虚拟机上安装过，没有在PC机或笔记本上安装过。我本意是——大几率不会安装。没想到他直接说，“那就好，我马上拿个笔记本过去你那帮安装一个！”。</p>
+<p>最后拿了一个吃了几年灰的小米Air 13’3笔记本过来，折腾了整整一天，才把黑苹果给它安装上。</p>
+<p><img src="https://p6-tt.byteimg.com/origin/pgc-image/d6f84f9759b6435dbcadf2585ac681b6?from=pc" alt="小米Air 13&#39;3 OC引导安装黑苹果macOS Big Sur"></p>
+<p>其实安装过程并不难，主要是爬资料花了很长的时间。而且黑苹果难的并不是安装，而是安装完成后是否能让各硬件吃上合适的驱动，让它们顺利上岗。</p>
+<p><img src="https://p1-tt.byteimg.com/origin/pgc-image/6112e4ef57ac484cb56162cb5a97980e?from=pc" alt="小米Air 13&#39;3 OC引导安装黑苹果macOS Big Sur"></p>
+<p><strong>大概流程就是：</strong></p>
+<ol>
+<li>确认安装电脑主机或笔记本硬件配置，特别是CPU和独显型号（小米Air13’3没法将老N卡驱动起来，唯一的不完美）；</li>
+<li>准备两个U盘：一个4G就够，一个16G以上；</li>
+<li>搜索下载相应的镜像，我下载的是macOS Big Sur 11.4；</li>
+<li>下载相应的镜像U盘制作工具；</li>
+<li>最后制作镜像U盘安装；</li>
+<li>解决驱动问题。</li>
+</ol>
+<p><strong>安装所需要用到的软件工具：</strong></p>
+<ul>
+<li>balenaEtcher（将macOS Big Sur 11.4镜像写入U盘）</li>
+<li>Windows PE制作工具（包含硬盘分区工具）</li>
+<li>OpenCore</li>
+</ul>
+<h1 id="一、搜索下载macOS-Big-Sur-11-4镜像"><a href="#一、搜索下载macOS-Big-Sur-11-4镜像" class="headerlink" title="一、搜索下载macOS Big Sur 11.4镜像"></a>一、搜索下载macOS Big Sur 11.4镜像</h1><p>一搜一堆大佬制作的镜像文件，但各种收费限制很难下载下来，如果你懒得搜索，可以关注文末<strong>公众号发送【bigsur】获取</strong>。我所下载的镜像保存在天翼云盘，下载速度杠杠的，13G左右大小，下载大概1个多小时就搞定了。</p>
+<p><img src="https://p1-tt.byteimg.com/origin/pgc-image/7be4d4c51930457182fe6ae09765cfde?from=pc" alt="小米Air 13&#39;3 OC引导安装黑苹果macOS Big Sur"></p>
+<p>一开始时是百度网盘的下载链接，但那速度，真的是急死人，最终才找到的天翼云盘链接，可惜的是天翼云盘的免费空间只有15G，现在这个镜像占用着我空间13G，我打算留一个月后删除，不过会保存一份到阿里云盘，静等阿里云盘分享功能上线。</p>
+<h1 id="二、制作镜像U盘"><a href="#二、制作镜像U盘" class="headerlink" title="二、制作镜像U盘"></a>二、制作镜像U盘</h1><p>在等待下载macOS Big Sur完成的过程中，可以先下载制作一个PE启动U盘。至于用哪个工具，自行搜索（例如：一键工作室、老毛桃之类的），丰衣足食。</p>
+<p>再下载balenaEtcher镜像写入U盘工具，操作很简单，也很稳：<strong>选择镜像文件——选择U盘——等待完成</strong>。写入耗时和你的U盘读写速度有关，我的大概用了20分钟。</p>
+<p><img src="https://p1-tt.byteimg.com/origin/pgc-image/7a162cb2bb4c4e9aa2a4b725b880d8a1?from=pc" alt="小米Air 13&#39;3 OC引导安装黑苹果macOS Big Sur"></p>
+<h1 id="三、安装镜像"><a href="#三、安装镜像" class="headerlink" title="三、安装镜像"></a>三、安装镜像</h1><p>具体步骤就不多说了，搜索一大堆，主要就是先要设置笔记本或PC机的BIOS为EFI启动模式，否则不识别启动U盘。</p>
+<p>而需要注意的是此macOS Big Sur镜像并非只能安装在小米的笔记本上，很多都能，主要是看CPU架构（<strong>根据自己CPU型号查询架构</strong>），根据不同的CPU架构选择不同的EFI引导文件。</p>
+<p><img src="https://p1-tt.byteimg.com/origin/pgc-image/e944231305f14e1d987670f4418bc393?from=pc" alt="小米Air 13&#39;3 OC引导安装黑苹果macOS Big Sur"></p>
+<p>使用Windows PE进入，再把已写入macOS Big Sur镜像的U盘接上，在EFI/OC文件夹路径下，找到config_XXX.plist，XXX代表你CPU的架构（这个镜像里包含了当前主流CPU架构config.plist配置），把对应你CPU架构的那个修改为config.plist，原来的那个重命名为其它。</p>
+<p>然后就开始用macOS Big Sur镜像U盘开始安装。<strong>需要注意硬盘数据，建议有重要数据一定要先备份到其它硬盘上</strong>。不管你是单独安装macOS Big Sur还是分区或分不同硬盘同时安装Windows双系统，都要备份，以免安装过程中手误抹掉了硬盘分区就悲剧了。</p>
+<p>安装完成后，再用Windows PE U盘启动，进入PE系统后，再接上macOS Big Sur镜像U盘，把里面的EFI文件夹复制到macOS Big Sur安装的硬盘EFI引导分区（我将CLOVER引导直接删除，朋友只需要一个OC引导，全盘单macOS）。</p>
+<p>取出U盘，重新启动从硬盘启动系统，有可能安装过程中不识别笔记本自带的键盘，那就要准备一个USB键盘连接输入设置系统参数。</p>
+<h1 id="四、驱动安装"><a href="#四、驱动安装" class="headerlink" title="四、驱动安装"></a>四、驱动安装</h1><p>安装完成后，小米Air 13’3以下几个硬件驱动不了：</p>
+<ul>
+<li>原生键盘不识别；</li>
+<li>原生声卡不识别；</li>
+<li>原生无线网卡不识别；</li>
+<li>芯片集显只识别7MB（卡顿）；</li>
+<li>电池管理不识别。</li>
+</ul>
+<p>我是在我笔记本上（Windows）先下载了键盘驱动、电池管理驱动和无线网卡的驱动以及软件。</p>
+<ul>
+<li>VoodooPS2Controller.kext（键盘）</li>
+<li>SMCBatteryManager.kext（电池管理）</li>
+<li>AirportItlwm.kext，itlwm.kext和HeliPort.app（解决原生无线网卡连接WiFi）</li>
+</ul>
+<p>在macOS Big Sur中通过OpenCore挂载EFI分区，把.kext驱动文件拷贝到EFI分区的EFI\OC\Kexts文件夹下。然后使用OpenCore打开EFI\OC\config.plist文件，在【Kernel-内核设置】项选择【快照添加】（0.6版本是【浏览添加】），把驱动文件夹添加上，然后勾选上相应的驱动启用，保存。</p>
+<p><img src="https://p3-tt.byteimg.com/origin/pgc-image/4b695fce14564d4c8cada4bb17ef0208?from=pc" alt="小米Air 13&#39;3 OC引导安装黑苹果macOS Big Sur"></p>
+<p>顺便把AppleALC.kext、Lilu.kext和WhateverGreen.kext也勾上启用，实际上这个镜像已经集成了声卡、显卡的驱动，只是没有启用。</p>
+<p><img src="https://p1-tt.byteimg.com/origin/pgc-image/7aedd966ffcc4c288a2aa28033c997ed?from=pc" alt="小米Air 13&#39;3 OC引导安装黑苹果macOS Big Sur"></p>
+<p>接着安装HeliPort.app，安装好后，把它添加到自启动项，具体操作搜索mac添加自动项。</p>
+<p>重启系统，键盘、电池和WiFi就能识别了，可以把USB键盘撤掉，连上你的WiFi。</p>
+<p>但是到目前为止，还是没有声音的，显卡也还是识别为7MB集显，还需继续折腾。</p>
+<p>根据CPU架构找出CPU平台ig-platform-id号，具体自行关键词搜索，我朋友这台小米Air 13’3的是酷睿i5 6代，ig-platform-id号为00001619.。</p>
+<p><img src="https://p6-tt.byteimg.com/origin/pgc-image/3ba466f29f134cc29a6761b85c328886?from=pc" alt="小米Air 13&#39;3 OC引导安装黑苹果macOS Big Sur"></p>
+<p>再用OpenCore挂载EFI分区，打开config.plist文件设置【DeviceProperties-设备属性设置】项，分别设置显卡和声卡设备。上图的的是显卡设备参数配置，配置好ig-platform-id，还有就是model属性值，为集成芯片显卡型号，小米Air 13’3的酷睿i5第六代为Intel HD Graphics 520。</p>
+<p>最后是声卡设备参数配置，需要根据声卡型号查找它的layout-id，只能是模拟声卡。layout-id这个数值可能有多个，选其中一个就可以了，小米Air 13’3我填了它其中100这个能正确搞定。</p>
+<p><img src="https://p6-tt.byteimg.com/origin/pgc-image/3fb37e8e96e94a72903c5cf9769fde2b?from=pc" alt="小米Air 13&#39;3 OC引导安装黑苹果macOS Big Sur"></p>
+<p>最后，重启大功告成。</p>
+<h1 id="使用感受"><a href="#使用感受" class="headerlink" title="使用感受"></a>使用感受</h1><p>操作不太习惯，鼠标滚轮和窗口按钮都是和Windows反过来的，习惯了Windows的话，操作起来很别扭，估计mac转Windows的人也和相应的有这种感觉。</p>
+<p><strong>不完美的地方：</strong></p>
+<ul>
+<li>电池耗电比较快；</li>
+<li>发热严重；</li>
+<li>关机无法切断电源（需关机后长按电源键切断电源）</li>
+</ul>
+<p>最吐血的是折腾完之后，接到朋友电话说，Windows 11准备出来了，界面和苹果一样美，而且操作起来要比苹果溜，等它发布后重新再给安装Windows 11。</p>
+<p><img src="https://p3-tt.byteimg.com/origin/pgc-image/741d0c3ad71b4218acd228c9e6be51c7?from=pc" alt="小米Air 13&#39;3 OC引导安装黑苹果macOS Big Sur"></p>
+<p>如果你的笔记本是小米Air 13’3，也想安装macOS Big Sur试试，又懒得折腾驱动，可以使用我配置好的EFI，<strong>关注以下公众号发送【bigsur】获取</strong>，但不保证一定能用。</p>
+<p><img src="https://shan-ren.oss-cn-beijing.aliyuncs.com/imgs/wxdcyj-6.png" alt="小米Air 13&#39;3 OC引导安装黑苹果macOS Big Sur"></p>
+]]></content>
+      <categories>
+        <category>笔记</category>
+      </categories>
+      <tags>
+        <tag>macOS</tag>
+        <tag>黑苹果</tag>
+        <tag>小米笔记本</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>通过手机快速扫描纸质相片或图文转换为数码图片</title>
+    <url>/2021/05/24/photo-scan/</url>
+    <content><![CDATA[<blockquote>
+<p>翻阅老照片也是一种温馨的享受！这些有着年代的每一张纸照片都有着一个属于它的故事，然而，如今这些照片已经慢慢发黄发旧，保存和翻看都不方便，甚至收着收着就找不到了，是很遗憾的事情！</p>
+</blockquote>
+<p>不过，现在你不用再担心，也无需花钱购买扫描仪，你只需要用你的手机就能把你这些最心爱的冲印照片快速转换为数码相片保存到手机上（之后就可以随便转移到其它存储设备上）。</p>
+<p><img src="https://p1-tt.byteimg.com/origin/6c3b0004f8519629eaec?from=pc" alt="如何使用手机快速扫描纸质相片转换为数码相片"></p>
+<p>其实之前也用过其它一些将老照片扫描变成数码电子档储存的 App（或者你会说没那么麻烦，直接手机拍照就行了），但总的来说要么偏色严重要么相纸表面眩光，完全丢失了老照片原有的色彩和“味道”。</p>
+<p>然而，在此推荐的谷歌的这款「照片扫描仪PhotoScan」则十分神奇，绝对称得上神器！它有着谷歌图片智能识别算法技术加持， 不仅速度快，而且就像是把老照片原封不动的放到手机里一样。</p>
+<p><img src="https://p1-tt.byteimg.com/origin/6c3b0004f89fa42ce496?from=pc" alt="如何使用手机快速扫描纸质相片转换为数码相片"></p>
+<p>「PhotoScan」操作简单，只需要通过智能手机简单的几步就能快速完成。打开应用后进行拍摄，然后再用画面中提示的四个圆点逐个对准，接着它就会通谷歌图片智能识别算法把多张照片进行合成，从而避免眩光和偏色的问题。</p>
+<p><img src="https://p6-tt.byteimg.com/origin/6c3b0004f9023b338661?from=pc" alt="如何使用手机快速扫描纸质相片转换为数码相片"></p>
+<p>同时这样扫描出来的照片还能自动完成边缘校正，避免因为扫描角度的问题造成的成像扭曲，而且也会自动裁剪出一张边缘齐整的数码老照片。如果拍摄的不够准，还可以手动调整边角，调准时还有放大显示便于我们能快速的调整好！</p>
+<p><img src="https://p6-tt.byteimg.com/origin/6ed20002337a72888a3f?from=pc" alt="如何使用手机快速扫描纸质相片转换为数码相片"></p>
+<p>谷歌的这种防眩光和多张算法修图的方式甚至连电脑和手机屏幕上的图片都能完成扫描，避免眩光。还有那些放在相簿里或过塑过的照片，都不需把它们拿出来，直接就能进行扫描。</p>
+<p><img src="https://p3-tt.byteimg.com/origin/6c3f00036709fd610769?from=pc" alt="如何使用手机快速扫描纸质相片转换为数码相片"></p>
+<p>个人认为这款「PhotoScan」的使用效果一定是目前所有同类照片扫描工具中最好的！如果你也有一堆老照片需要妥善保管，又想随时能找出来看看的话，谷歌这款充满人文关怀的手机App一定是你的最佳选择，没有之一。</p>
+<blockquote>
+<p>链接: <a href="https://pan.baidu.com/s/1HMBoyHgguVsphU5CiTBNaQ">https://pan.baidu.com/s/1HMBoyHgguVsphU5CiTBNaQ</a> 提取码: 2uu4 </p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>应用软件</category>
+      </categories>
+      <tags>
+        <tag>App</tag>
+        <tag>图片处理</tag>
+        <tag>扫描</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>斗图、自媒体制作GIF的一条龙工具推荐（电脑版）</title>
+    <url>/2021/05/26/screen-gif-compress/</url>
+    <content><![CDATA[<blockquote>
+<p> 录屏、转换、压缩、抠图四个部分，每个部分推荐两三个工具。</p>
+</blockquote>
+<h2 id="一、录屏"><a href="#一、录屏" class="headerlink" title="一、录屏"></a>一、录屏</h2><p>本次核心是 GIF 动图，所以工具也是以此为中心出发。如是长视频的录屏需求，很遗憾，此次的「GIF 录屏工具」是不符合的。</p>
+<blockquote>
+<p>录屏生成GIF最常见的工具有三款：LICEcap、GifCam、ScreenToGif。</p>
+</blockquote>
+<h3 id="1、-LICEcap"><a href="#1、-LICEcap" class="headerlink" title="1、 LICEcap"></a>1、 LICEcap</h3><blockquote>
+<p>下载地址：<a href="https://www.cockos.com/licecap/">https://www.cockos.com/licecap/</a></p>
+</blockquote>
+<p>LICEcap 是几个工具中最轻量的 GIF 录屏软件，200KB 的安装包，安装后不到 500KB 的大小。只支持录屏功能，没有更多的编辑能力。</p>
+<p>官网 <strong>Windows 版</strong>最后一个版本还是2017年的，而 <strong>MacOS 版</strong>则更新至今。</p>
+<p>LICEcap 可随意更改窗口大小，且操作麻瓜，具体也没什么好说的。</p>
+<blockquote>
+<p>友情提示，LICEcap 在保存路径中不可有中文，否则没办法保存，这都是血的教训。</p>
+</blockquote>
+<h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><p>轻量、操作麻瓜、输出时间短、可显示鼠标、可限制最大 FPS。</p>
+<h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><p>压缩效果一般、编辑功能不足、没有中文支持。</p>
+<h3 id="2、GifCam"><a href="#2、GifCam" class="headerlink" title="2、GifCam"></a>2、GifCam</h3><blockquote>
+<p>下载地址：<a href="http://blog.bahraniapps.com/gifcam/#download">http://blog.bahraniapps.com/gifcam/#download</a></p>
+</blockquote>
+<p>窗口保持始终最前端，可以调节视野大小，如同相机一般。</p>
+<p>REC（录制）有好多选项，主要是调节帧数。最后SAVE（保存），选择清晰度，不同清晰度生成的GIF图大小是不一样的。自行测试，分为质量模式、256色、20色、灰度图等。</p>
+<blockquote>
+<p>还可以保存成AVI的视频格式。</p>
+</blockquote>
+<blockquote>
+<p>还有gif图的编辑模式，可以增加文字，帧数剪辑等功能。</p>
+</blockquote>
+<h3 id="优点-1"><a href="#优点-1" class="headerlink" title="优点"></a>优点</h3><p>轻量、操作麻瓜、自动添加延迟、可设置项更多（包括不限于显示鼠标、限制 FPS ）。</p>
+<h3 id="缺点-1"><a href="#缺点-1" class="headerlink" title="缺点"></a>缺点</h3><p>虽有编辑功能，但难用、输出时间长、吃内存、低 FPS 下有重影（偶尔出现过几次）。</p>
+<h3 id="3、ScreenToGif"><a href="#3、ScreenToGif" class="headerlink" title="3、ScreenToGif"></a>3、ScreenToGif</h3><blockquote>
+<p>下载地址：<a href="https://www.screentogif.com/downloads">https://www.screentogif.com/downloads</a></p>
+</blockquote>
+<p>重点推荐的录屏工具，没别的原因，就是好用。</p>
+<blockquote>
+<p>ScreenToGif（后简称 STG）默认启动页面，四大项：录屏的录像机、电脑摄像头、画板录制、编辑器。</p>
+</blockquote>
+<p>不长篇大论，我们重点说说录像机和编辑器。</p>
+<p>录像机，同样麻瓜操作，支持限制 FPS，可随意更改窗口大小，也能迅速对齐某一窗口（自动吸附，不用你再拉着窗口手动对齐了），此外如果你意外退出了，STG 有缓存文件可以打开最近项目。</p>
+<p>但说实话 STG 最大魅力是在完成度高，这个开源的录屏工具把你想要的都考虑了，下面是 STG 设置里的截图。</p>
+<blockquote>
+<p>你能直接简单使用，也能更进一步的按习惯调教，全面是 STG 的良心之处。</p>
+</blockquote>
+<p>等你停止录制后会自动跳到编辑器，然后就可以把录屏内容逐帧修改了。</p>
+<p><strong>编辑器中一共分为七大块：</strong></p>
+<blockquote>
+<p>文件、主页、播放、编辑、图像、过渡、统计。</p>
+</blockquote>
+<p>文件可以打开新的图片拼接到已有 GIF 中，也可以找寻最近项目。</p>
+<p>编辑可以移除重复帧，可以批量减少帧数，也可以把整个 GIF 反转。</p>
+<p>图像应该是我用的比较多的功能区了，可以加字幕、水印、进度条或者录屏时的按键，也可以调整图片大小，还能打码。</p>
+<p>我就不介绍逐帧处理这样的基操了，单个筛选用 ctrl，多个选中用 shift。</p>
+<p>在保存时可以选择文件类型，GIF、WebP 或者 MP4、MKV 这样的视频格式，编码器也能选择内置的、系统的或 FFmpeg 这样第三方的。</p>
+<p>之所以详细介绍 STG 是因为后面可能它就是我主要生产力工具了，这样绿色开源、全面且是单文件的 GIF 录屏工具能满足绝大部分的需求了。</p>
+<h3 id="优点-2"><a href="#优点-2" class="headerlink" title="优点"></a>优点</h3><p>编辑强大、成像效果佳、能设置更多细节、中文支持</p>
+<h3 id="缺点-2"><a href="#缺点-2" class="headerlink" title="缺点"></a>缺点</h3><p>编辑后输出时间长、不支持多系统</p>
+<blockquote>
+<p>关于录屏工具还有几款我测试了但是不准备详细介绍优劣了，比如有 EV 录屏、OBS、Apowersoft 在线版等等。</p>
+</blockquote>
+<p>浏览器网页录屏工具往往都需要提前下载个录制启动器，但我在实测的时候会有直接把浏览器搞崩溃的情况，所以从稳定性角度讲还是考虑下载到本地的录屏工具比较好。</p>
+<p>真要应急了直接「Win+G」，用 Win10 自带的 Xbox 录屏，但我不知道为啥，同样的内容，Xbox 的录屏导出的文件更大。</p>
+<h3 id="一张图概括："><a href="#一张图概括：" class="headerlink" title="一张图概括："></a>一张图概括：</h3><p><img src="https://imgs.shan-ren.cc/images/640.jpg" alt="图片"></p>
+<h2 id="二、转换"><a href="#二、转换" class="headerlink" title="二、转换"></a>二、转换</h2><p>如果不满意上面这三款 GIF 录屏工具，或是真碰到别人给你的是视频格式的文件，我们就需要把视频格式转换成 GIF 格式。</p>
+<p>转换的工具有很多，之前也推荐了不少，比如这个（超链接），我这里就测试了几个我筛选过的在线版转换工具。</p>
+<p>不过说实话，在线工具是真的多，一键式操作，功能各异，也不局限于转换，所以我就直接介绍一下转换优劣和大致功能，具体就不演示了。</p>
+<h3 id="1、tt0-top"><a href="#1、tt0-top" class="headerlink" title="1、tt0.top"></a>1、tt0.top</h3><blockquote>
+<p>官网：<a href="http://tt0.top/">http://tt0.top</a></p>
+</blockquote>
+<p>同等网络下，3M、17s 的 MP4 视频从上传到转换成功耗时 15s 左右。</p>
+<p>它在转换时可以设置各种参数，但仅以默认参数转换得到的 GIF 动图大小为 <strong>2M</strong> 左右。</p>
+<h3 id="优点-3"><a href="#优点-3" class="headerlink" title="优点"></a>优点</h3><p>免费无需注册、可设置截取频率（每秒从视频截取几帧），可设置导出时的动图速度（每帧多长时间）、可直接裁剪长短和大小、中文支持。</p>
+<h3 id="缺点-3"><a href="#缺点-3" class="headerlink" title="缺点"></a>缺点</h3><p>仅支持 MP4 的转换、动图总帧数上限 100 帧。</p>
+<h3 id="其他功能"><a href="#其他功能" class="headerlink" title="其他功能"></a>其他功能</h3><p>图片合成 GIF、图片压缩。</p>
+<h3 id="2、图贴士（原-GIF-工具之家）"><a href="#2、图贴士（原-GIF-工具之家）" class="headerlink" title="2、图贴士（原 GIF 工具之家）"></a>2、图贴士（原 GIF 工具之家）</h3><blockquote>
+<p>官网：<a href="http://www.tutieshi.com/">www.tutieshi.com</a></p>
+</blockquote>
+<p>同等网络下，3M、17s 的 MP4 视频从上传到转换成功耗时 45s 左右，转换后的 GIF 大小为 <strong>24M</strong> 左右。</p>
+<h3 id="优点-4"><a href="#优点-4" class="headerlink" title="优点"></a>优点</h3><p>免费无需注册、可直接裁剪长短、中文支持。</p>
+<h3 id="缺点-4"><a href="#缺点-4" class="headerlink" title="缺点"></a>缺点</h3><p>支持转换格式少（MP4\ogg\webm）、转换速度慢。</p>
+<h3 id="其他功能-1"><a href="#其他功能-1" class="headerlink" title="其他功能"></a>其他功能</h3><p>图片合成 GIF、图片压缩、GIF 裁剪、马赛克。</p>
+<h3 id="3、EasyGif"><a href="#3、EasyGif" class="headerlink" title="3、EasyGif"></a>3、EasyGif</h3><blockquote>
+<p>官网：<a href="http://www.easygif.tools/">www.easygif.tools</a></p>
+</blockquote>
+<p>同等网络下，3M、17s 的 MP4 视频从上传到转换成功耗时 35s 左右，转换后的 GIF 大小为 <strong>4M</strong> 左右。</p>
+<h3 id="优点-5"><a href="#优点-5" class="headerlink" title="优点"></a>优点</h3><p>免费无需注册、可单帧操作、可设置延迟、可加滤镜和文字</p>
+<h3 id="缺点-5"><a href="#缺点-5" class="headerlink" title="缺点"></a>缺点</h3><p>不支持中文、仅支持 MP4 的转换、转换速度慢</p>
+<h3 id="其他功能-2"><a href="#其他功能-2" class="headerlink" title="其他功能"></a>其他功能</h3><p>图片合成 GIF</p>
+<h3 id="4、Convertio"><a href="#4、Convertio" class="headerlink" title="4、Convertio"></a>4、Convertio</h3><blockquote>
+<p>官网：<a href="https://convertio.co/zh/">https://convertio.co/zh/</a></p>
+</blockquote>
+<p>同等网络下，3M、17s 的 MP4 视频从上传到转换成功耗时 20s 左右，转换后的 GIF 大小为 <strong>15M</strong> 左右。</p>
+<p>这就是文件转换器，有对应的扩展，但一般来说在线版的就够用。</p>
+<p>在转换这个领域，人家是专业的，视频格式不仅局限于 MP4 了，大部分的格式都搞得定。</p>
+<h3 id="优点-6"><a href="#优点-6" class="headerlink" title="优点"></a>优点</h3><p>支持格式多、中文支持、转换速度适中、转换结果保存一段时间</p>
+<h3 id="缺点-6"><a href="#缺点-6" class="headerlink" title="缺点"></a>缺点</h3><p>有 100M 的文件大小限制、转换后压缩效果差</p>
+<blockquote>
+<p>还记得 ScreenToGif 嘛？用它也能做到转换的功能，所以软件方面不多说了，大家按需选择即可。</p>
+</blockquote>
+<h3 id="一张图概括：-1"><a href="#一张图概括：-1" class="headerlink" title="一张图概括："></a>一张图概括：</h3><p><img src="https://imgs.shan-ren.cc/images/zh640.jpg"></p>
+<h2 id="三、压缩"><a href="#三、压缩" class="headerlink" title="三、压缩"></a>三、压缩</h2><p>决定一个 GIF 动图大小的因素有很多，尺寸、颜色、帧率（FPS）、时长等等，如果再高级一点就要看压缩动图时的算法。</p>
+<p>之前介绍的几款在线工具中也都有压缩的功能，但术业有专攻，我筛选了几款专门做图片压缩的工具，这次不看原理，我们看看测试的结果如何。</p>
+<p>我录了一个 113 帧、15.3M 大小的 GIF 动图，因为公众号的限制就不放出来展示了。</p>
+<h3 id="1、docsmall"><a href="#1、docsmall" class="headerlink" title="1、docsmall"></a>1、docsmall</h3><blockquote>
+<p>官网：<a href="http://www.docsmall.com/gif-compress">www.docsmall.com/gif-compress</a></p>
+</blockquote>
+<p><strong>这里直接说一下测试结果：</strong></p>
+<p>15.3M 大小的 GIF 动图经过轻度压缩，将大小缩减到了 9.7M，将近压缩了 36%。</p>
+<p>而在极强的压缩模式下，缩减到了 6 M，将近压缩了 60%，给力还是挺给力的。</p>
+<h3 id="优点-7"><a href="#优点-7" class="headerlink" title="优点"></a>优点</h3><p>支持批量压缩、支持多种压缩强度、压缩速度快。</p>
+<h3 id="缺点-7"><a href="#缺点-7" class="headerlink" title="缺点"></a>缺点</h3><p>单文件图片有 25M 的大小限制。</p>
+<h2 id="2、PP-鸭"><a href="#2、PP-鸭" class="headerlink" title="2、PP 鸭"></a>2、PP 鸭</h2><blockquote>
+<p>官方网址：<a href="https://ppduck.com/">https://ppduck.com/</a></p>
+</blockquote>
+<p>PP 鸭是一个专门做图片压缩的软件（GIF\PNG\JPG），需要你下载客户端到本地。</p>
+<p>使用方法倒是相当麻瓜，打开应用，拖着需要压缩的图片到 PP鸭窗口中，稍有停顿会有三种选择：<strong>原地覆盖、自定义压缩格式以及输出位置、指定压缩大小</strong>。</p>
+<p>第一种模式真就一键式操作，会把你想要压缩的图片文件压缩后同名保存，自然就覆盖了原文件。</p>
+<p>第二种模式在此基础上，可以指定保存目录，压缩格式还多了  webp 无损/有损两种。</p>
+<blockquote>
+<p>15.3M 大小的 GIF 动图经过压缩，将大小缩减到了 9.7M，将近压缩了 36%。</p>
+</blockquote>
+<p>如果不满意压缩效果，可以把图片恢复还原（具体位置在左上角的恢复按钮）。</p>
+<p>最后一种模式又分为<strong>两种优先压缩方法</strong>：</p>
+<ul>
+<li>一种是以保持画质为前提，通过缩小宽高完成压缩。</li>
+</ul>
+<ul>
+<li>另一种则是提前规定好宽高，通过压缩画质实现压缩。</li>
+</ul>
+<p>第一种压缩方法能控制在 5M 以内，而第二种压缩方法保持尺寸时无论怎样也无法压缩到 5M 以内，这也算是一点小遗憾。</p>
+<p>我发现 PP 鸭压缩图片并没有动帧率，只是在画质、色彩、尺寸上进行压缩。</p>
+<h3 id="优点-8"><a href="#优点-8" class="headerlink" title="优点"></a>优点</h3><p>操作麻瓜、支持批量压缩、可指定压缩大小。</p>
+<h3 id="缺点-8"><a href="#缺点-8" class="headerlink" title="缺点"></a>缺点</h3><p>压缩时间长、不完全免费。</p>
+<blockquote>
+<p>PP 鸭是一个收费软件，支持批量压缩，不过最多一次能导入 10 张图片。</p>
+</blockquote>
+<p>如果对批量压缩这块没要求，有个白嫖的方法，就是每次打开软件，免费的 10 次压缩都会重置，对于大部分人来说，免费的 PP 鸭肯定是够用的。</p>
+<blockquote>
+<p>压缩这一款涉及到的因素实在太多，我往往会通过 ScreenToGif 去重、去掉前后多余帧、裁剪尺寸的方式完成压缩前奏，然后再使用上面两个工具进一步压缩。</p>
+</blockquote>
+<p>在线工具虽然方便（随用随关），但我不是特别推荐，主要是先上传再压缩的过程繁琐，服务器繁忙时还会有卡顿崩溃（极端情况，我还没碰到过）的情况出现。</p>
+<blockquote>
+<p>PP 鸭已经能极大程度满足需求，但如果你真的碰到要把 GIF 压缩到极致的问题，我建议考虑一下 UGA（Ulead GIF Animator）这个老牌压缩神器。</p>
+</blockquote>
+<p>UGA 支持调整动图的颜色、抖动、尺寸、移除多余像素等等方式优化压缩，使用它你就得先了解一下 GIF 背后的基础知识，门槛太高违背了我们一键式麻瓜压缩的初衷，这里就不过多介绍了。</p>
+<h2 id="四、抠图"><a href="#四、抠图" class="headerlink" title="四、抠图"></a>四、抠图</h2><p>其实现在视频和 GIF 动图也都能完成抠图的操作。在此给大家推荐一个在线网站，<strong>Unscreen</strong>。</p>
+<blockquote>
+<p>友情提示这个网站不支持中文，如果不习惯，请搭配翻译功能食用。</p>
+</blockquote>
+<p>官方地址：<a href="http://www.unscreen.com/">www.unscreen.com</a></p>
+<p>不过，如果动图的背景很复杂、人物的动作幅度很大，不能很好的区别主体的话，就很有可能会导致去除背景效果不理想的问题发生。</p>
+<p>Unscreen 目前仅限于下载 5s 以内的动图或视频，抠图篇算是这次 GIF 动图攻略里的一个添头吧，如果这方面有新的工具出现了我会第一时间分享给大家。</p>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>虽然 GIF 动图这个需求并不是很多人的刚需，但确实也会有用到的时候。</p>
+<p>一般情况下录屏我选 ScreenToGif，转换用 tt0 或 convertio，压缩用 PP 鸭，抠图用 Unscreen，至于不同情况下的不同选择，我也会用上面这些工具搭配着使用。</p>
+<p>这次之所以挑这么一个小众需求来做评测，除了我自己真的用得上之外，还有一个原因是：</p>
+<blockquote>
+<p>我在解决问题的时候，总会发现有 N 多解决方案，但总是有果无因，很少有答案告诉我们为什么会建议采用这种解决方案，以及最重要的：具体效果如何。</p>
+</blockquote>
+<p>这样一来，试错成本大大提升，可能到最后也没办法找到一个称心如意的工具。</p>
+<blockquote>
+<p>选择多不等于好选择，适合自己的才是最好的。</p>
+</blockquote>
+<p>这也是我一直以来做测评的初衷，除了告诉这样做之外，还要告诉你为什么这样做；除了告诉你选这个之外，还要告诉你选这个的效果如何。</p>
+]]></content>
+      <categories>
+        <category>应用软件</category>
+      </categories>
+      <tags>
+        <tag>录屏</tag>
+        <tag>GIF</tag>
+        <tag>压缩</tag>
+        <tag>抠图</tag>
+      </tags>
+  </entry>
+</search>
