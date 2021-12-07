@@ -1,0 +1,254 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Hexo、GitHub、Mongodb、Vercel、Twikoo搭建免费博客 | 闪人</title><meta name="keywords" content="Hexo,Github,Mongodb,Vercel,Twikoo,网站,博客"><meta name="author" content="老整"><meta name="copyright" content="老整"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="很久之前在阿里云撸了几年88元一年的虚拟机，到期后续费太贵了，对于一个不是生产力的网站来说，如果续费就有点飘了，家里又没有矿，没法任性。 然后发现腾讯云的虚拟机也对新用户优惠，又撸了两年。年初的时候到期了，但一直没有去续费。一是前段时间都比较忙，忘记了；二是续费太贵了。 就这样，几年的琐琐碎碎就没有了。 只是可惜了备案，重新再备案已经不再想了，对于网站的备案真的是一言难尽！ 有空了，又想折腾一下。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo、GitHub、Mongodb、Vercel、Twikoo搭建免费博客">
+<meta property="og:url" content="https://shan-ren.cc/2021/12/05/Hexo-Github-Mongodb-Vercel-Twikoo/index.html">
+<meta property="og:site_name" content="闪人">
+<meta property="og:description" content="很久之前在阿里云撸了几年88元一年的虚拟机，到期后续费太贵了，对于一个不是生产力的网站来说，如果续费就有点飘了，家里又没有矿，没法任性。 然后发现腾讯云的虚拟机也对新用户优惠，又撸了两年。年初的时候到期了，但一直没有去续费。一是前段时间都比较忙，忘记了；二是续费太贵了。 就这样，几年的琐琐碎碎就没有了。 只是可惜了备案，重新再备案已经不再想了，对于网站的备案真的是一言难尽！ 有空了，又想折腾一下。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://z3.ax1x.com/2021/05/22/gLhR0I.jpg">
+<meta property="article:published_time" content="2021-12-05T10:37:42.000Z">
+<meta property="article:modified_time" content="2021-12-06T14:31:47.784Z">
+<meta property="article:author" content="老整">
+<meta property="article:tag" content="Hexo">
+<meta property="article:tag" content="Github">
+<meta property="article:tag" content="Mongodb">
+<meta property="article:tag" content="Vercel">
+<meta property="article:tag" content="Twikoo">
+<meta property="article:tag" content="网站">
+<meta property="article:tag" content="博客">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://z3.ax1x.com/2021/05/22/gLhR0I.jpg"><link rel="shortcut icon" href="https://i.loli.net/2021/05/23/oThKf4HZEMYxaS5.png"><link rel="canonical" href="https://shan-ren.cc/2021/12/05/Hexo-Github-Mongodb-Vercel-Twikoo/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Hexo、GitHub、Mongodb、Vercel、Twikoo搭建免费博客',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2021-12-06 22:31:47'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const now = new Date()
+          const hour = now.getHours()
+          const isNight = hour <= 6 || hour >= 18
+          if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+          else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const fontSizeVal = saveToLocal.get('global-font-size')
+    if (fontSizeVal !== undefined) {
+      document.documentElement.style.setProperty('--global-font-size', fontSizeVal + 'px')
+    }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://z3.ax1x.com/2021/05/22/gLhR0I.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">11</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">31</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fas fa-list"></i><span> 分类</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/%E7%AC%94%E8%AE%B0/"><i class="fa-fw fas fa-book"></i><span> 笔记</span></a></li><li><a class="site-page child" href="/categories/%E8%AF%BE%E5%A0%82/"><i class="fa-fw fas fa-paint-brush"></i><span> 课堂</span></a></li><li><a class="site-page child" href="/categories/%E8%AF%BE%E5%A4%96/"><i class="fa-fw fas fa-paint-brush"></i><span> 课外</span></a></li><li><a class="site-page child" href="/categories/%E5%BA%94%E7%94%A8%E8%BD%AF%E4%BB%B6/"><i class="fa-fw fas fa-bolt"></i><span> 应用软件</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 传送门</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://api.dujin.org/bing/1920.php')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">闪人</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fas fa-list"></i><span> 分类</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/%E7%AC%94%E8%AE%B0/"><i class="fa-fw fas fa-book"></i><span> 笔记</span></a></li><li><a class="site-page child" href="/categories/%E8%AF%BE%E5%A0%82/"><i class="fa-fw fas fa-paint-brush"></i><span> 课堂</span></a></li><li><a class="site-page child" href="/categories/%E8%AF%BE%E5%A4%96/"><i class="fa-fw fas fa-paint-brush"></i><span> 课外</span></a></li><li><a class="site-page child" href="/categories/%E5%BA%94%E7%94%A8%E8%BD%AF%E4%BB%B6/"><i class="fa-fw fas fa-bolt"></i><span> 应用软件</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 传送门</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Hexo、GitHub、Mongodb、Vercel、Twikoo搭建免费博客</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-12-05T10:37:42.000Z" title="发表于 2021-12-05 18:37:42">2021-12-05</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2021-12-06T14:31:47.784Z" title="更新于 2021-12-06 22:31:47">2021-12-06</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%AC%94%E8%AE%B0/">笔记</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Hexo、GitHub、Mongodb、Vercel、Twikoo搭建免费博客"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>很久之前在阿里云撸了几年88元一年的虚拟机，到期后续费太贵了，对于一个不是生产力的网站来说，如果续费就有点飘了，家里又没有矿，没法任性。</p>
+<p>然后发现腾讯云的虚拟机也对新用户优惠，又撸了两年。年初的时候到期了，但一直没有去续费。一是前段时间都比较忙，忘记了；二是续费太贵了。</p>
+<p>就这样，几年的琐琐碎碎就没有了。</p>
+<p>只是可惜了备案，重新再备案已经不再想了，对于网站的备案真的是一言难尽！</p>
+<p>有空了，又想折腾一下。于是就有了这个新的网站。</p>
+<p>不用备案，除了域名，都是白嫖的。</p>
+<p>采用Hexo、Github、Mongodb、Vercel、Twikoo免费搭建，使用的<a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a>主题。</p>
+<h1 id="一、Hexo-Github-Pages搭建免费博客"><a href="#一、Hexo-Github-Pages搭建免费博客" class="headerlink" title="一、Hexo+Github Pages搭建免费博客"></a>一、Hexo+Github Pages搭建免费博客</h1><p>以前一直使用的WordPress搭建博客，挺好用的，主题模板和插件都非常多，但是唯一不好的就是越来越臃肿，拖慢了访问速度。</p>
+<p>而且没法撸到适合WordPress的免费环境和MySQL。找来找去，最后就决定了使用Hexo+Github Pages搭建。</p>
+<p>具体的搭建步骤，我是参考了知乎上这篇文章完成的，在此就不多说了。</p>
+<blockquote>
+<p>参考文章：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://zhuanlan.zhihu.com/p/60578464">使用 Hexo+GitHub 搭建个人免费博客教程（小白向）</a></p>
+</blockquote>
+<h1 id="二、Twikoo评论插件"><a href="#二、Twikoo评论插件" class="headerlink" title="二、Twikoo评论插件"></a>二、Twikoo评论插件</h1><p>之前博客搭建好后，一直没有开启评论。现在有空了就折腾一下，根据Twikoo作者的说明文档很快就能搭建好。</p>
+<p>原本可以使用腾讯的免费优惠套餐，但现在没有这个免费套餐了。由于基础版 1 已从 0 元涨价至 6.9 元 / 月，需要付费购买环境才能部署。</p>
+<p>不过免费的还可以用到Mongodb和Vercel来部署完成，只是国内的访问速度比不过腾讯云。</p>
+<blockquote>
+<p>参考文章：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://twikoo.js.org/quick-start.html#%E4%BA%91%E5%87%BD%E6%95%B0%E9%83%A8%E7%BD%B2">Twikoo云函数部署操作说明</a></p>
+</blockquote>
+<p>需要注意的是，要用到Github的仓库，先在Github创建好一个分支仓库。</p>
+<h1 id="三、将Hexo部署到Vercel"><a href="#三、将Hexo部署到Vercel" class="headerlink" title="三、将Hexo部署到Vercel"></a>三、将Hexo部署到Vercel</h1><p>误打误撞，发现Hexo可以部署到Vercel。</p>
+<p>GitHub Pages有时受DNS污染，无法访问。</p>
+<p>Vercel在港台有 CDN 节点。所以要比GitHub要更快和稳定一些。</p>
+<p>实际还是要使用到GitHub才行，因为Vercel只是一个静态网页部署网站，并不托管代码。</p>
+<p>我们通过 <strong>GitHub 来托管 hexo deploy 生成的网页文件，并设置自动导入。当你的源代码仓库有变动后，Vercel 会第一时间检测到并重新部署网站，部署完成后会通过邮件提醒。</strong></p>
+<blockquote>
+<p>参考文章：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://snow.js.org/hexo-vercel/">Hexo：将你的博客部署到 Vercel</a></p>
+</blockquote>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined" rel="external nofollow noreferrer">老整</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://shan-ren.cc/2021/12/05/Hexo-Github-Mongodb-Vercel-Twikoo/">https://shan-ren.cc/2021/12/05/Hexo-Github-Mongodb-Vercel-Twikoo/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow noreferrer" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://shan-ren.cc" target="_blank">闪人</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Hexo/">Hexo</a><a class="post-meta__tags" href="/tags/Github/">Github</a><a class="post-meta__tags" href="/tags/Mongodb/">Mongodb</a><a class="post-meta__tags" href="/tags/Vercel/">Vercel</a><a class="post-meta__tags" href="/tags/Twikoo/">Twikoo</a><a class="post-meta__tags" href="/tags/%E7%BD%91%E7%AB%99/">网站</a><a class="post-meta__tags" href="/tags/%E5%8D%9A%E5%AE%A2/">博客</a></div><div class="post_share"><div class="social-share" data-image="https://z3.ax1x.com/2021/05/22/gLhR0I.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button button--animated"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="https://shan-ren.oss-cn-beijing.aliyuncs.com/imgs/IMG_20210525_095149.jpg" rel="external nofollow noreferrer" target="_blank"><img class="post-qr-code-img" src="https://shan-ren.oss-cn-beijing.aliyuncs.com/imgs/IMG_20210525_095149.jpg" alt="微信长按识别"/></a><div class="post-qr-code-desc">微信长按识别</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2021/11/23/jdk-1-8-ec/"><img class="next-cover" src="https://images.idgesg.net/images/article/2019/03/javaworld_jvm_jdk_jre_explainer_java_development_kit_write_3x2_2400x1600_by_idg_oracle_vasabii_gettyimages-100790551-large.3x2.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Windows下JDK8.0（JDK1.8）环境变量配置</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://z3.ax1x.com/2021/05/22/gLhR0I.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">老整</div><div class="author-info__description"></div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">11</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">31</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/singingqin"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80%E3%80%81Hexo-Github-Pages%E6%90%AD%E5%BB%BA%E5%85%8D%E8%B4%B9%E5%8D%9A%E5%AE%A2"><span class="toc-number">1.</span> <span class="toc-text">一、Hexo+Github Pages搭建免费博客</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%8C%E3%80%81Twikoo%E8%AF%84%E8%AE%BA%E6%8F%92%E4%BB%B6"><span class="toc-number">2.</span> <span class="toc-text">二、Twikoo评论插件</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E5%B0%86Hexo%E9%83%A8%E7%BD%B2%E5%88%B0Vercel"><span class="toc-number">3.</span> <span class="toc-text">三、将Hexo部署到Vercel</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2021/12/05/Hexo-Github-Mongodb-Vercel-Twikoo/" title="Hexo、GitHub、Mongodb、Vercel、Twikoo搭建免费博客">Hexo、GitHub、Mongodb、Vercel、Twikoo搭建免费博客</a><time datetime="2021-12-05T10:37:42.000Z" title="发表于 2021-12-05 18:37:42">2021-12-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/11/23/jdk-1-8-ec/" title="Windows下JDK8.0（JDK1.8）环境变量配置"><img src="https://images.idgesg.net/images/article/2019/03/javaworld_jvm_jdk_jre_explainer_java_development_kit_write_3x2_2400x1600_by_idg_oracle_vasabii_gettyimages-100790551-large.3x2.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Windows下JDK8.0（JDK1.8）环境变量配置"/></a><div class="content"><a class="title" href="/2021/11/23/jdk-1-8-ec/" title="Windows下JDK8.0（JDK1.8）环境变量配置">Windows下JDK8.0（JDK1.8）环境变量配置</a><time datetime="2021-11-23T03:25:25.000Z" title="发表于 2021-11-23 11:25:25">2021-11-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/06/25/macOS-Big-Sur/" title="小米Air 13'3 OC引导安装黑苹果macOS Big Sur"><img src="https://p6-tt.byteimg.com/origin/pgc-image/d6f84f9759b6435dbcadf2585ac681b6" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="小米Air 13'3 OC引导安装黑苹果macOS Big Sur"/></a><div class="content"><a class="title" href="/2021/06/25/macOS-Big-Sur/" title="小米Air 13'3 OC引导安装黑苹果macOS Big Sur">小米Air 13'3 OC引导安装黑苹果macOS Big Sur</a><time datetime="2021-06-25T03:25:25.000Z" title="发表于 2021-06-25 11:25:25">2021-06-25</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/06/05/Nginx-Config-ReadMe/" title="Nginx配置详解"><img src="https://imgs.shan-ren.cc/images/nginx.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Nginx配置详解"/></a><div class="content"><a class="title" href="/2021/06/05/Nginx-Config-ReadMe/" title="Nginx配置详解">Nginx配置详解</a><time datetime="2021-06-05T01:11:37.000Z" title="发表于 2021-06-05 09:11:37">2021-06-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/06/04/children-documentary-film/" title="人民日报推荐了36部非常适合孩子看的纪录片"><img src="https://cn.bing.com/th?id=OHR.PoetrysCave_ZH-CN3196193909_1920x1080.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="人民日报推荐了36部非常适合孩子看的纪录片"/></a><div class="content"><a class="title" href="/2021/06/04/children-documentary-film/" title="人民日报推荐了36部非常适合孩子看的纪录片">人民日报推荐了36部非常适合孩子看的纪录片</a><time datetime="2021-06-04T12:52:31.000Z" title="发表于 2021-06-04 20:52:31">2021-06-04</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://api.dujin.org/bing/1920.php')"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2021 By 老整</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="font-plus" type="button" title="放大字体"><i class="fas fa-plus"></i></button><button id="font-minus" type="button" title="缩小字体"><i class="fas fa-minus"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><div class="js-pjax"><script>(()=>{
+  const $countDom = document.getElementById('twikoo-count')
+  const init = () => {
+    twikoo.init(Object.assign({
+      el: '#twikoo-wrap',
+      envId: 'https://shanren-two.vercel.app',
+      region: ''
+    }, null))
+  }
+
+  const getCount = () => {
+    twikoo.getCommentsCount({
+      envId: 'https://shanren-two.vercel.app',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(function (res) {
+      $countDom.innerText = res[0].count
+    }).catch(function (err) {
+      console.error(err);
+    });
+  }
+
+  const loadTwikoo = (bool = false) => {
+    if (typeof twikoo === 'object') {
+      init()
+      bool && $countDom && setTimeout(getCount,0)
+    } else {
+      getScript('https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(()=> {
+        init()
+        bool && $countDom && setTimeout(getCount,0)
+      })
+    }
+  }
+
+  if ('Twikoo' === 'Twikoo' || !false) {
+    if (false) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo(true)
+  } else {
+    window.loadOtherComment = () => {
+      loadTwikoo()
+    }
+  }
+})()</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
