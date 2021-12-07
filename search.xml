@@ -319,28 +319,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Windows下JDK8.0（JDK1.8）环境变量配置</title>
-    <url>/2021/11/23/jdk-1-8-ec/</url>
-    <content><![CDATA[<p>经常要在Windows Server安装配置JDK，目前只能用1.8，做个笔记。</p>
-<p><img src="https://images.idgesg.net/images/article/2019/03/javaworld_jvm_jdk_jre_explainer_java_development_kit_write_3x2_2400x1600_by_idg_oracle_vasabii_gettyimages-100790551-large.3x2.jpg" alt="JDK1.8环境变量配置"></p>
-<p>一、进入环境变量</p>
-<p><img src="https://images2018.cnblogs.com/blog/1468426/201808/1468426-20180818163820381-998111321.png" alt="JDK1.8环境变量配置"></p>
-<p><strong>二、新建JAVA_HOME系统变量</strong></p>
-<p>变量名：JAVA_HOME ，变量值：D:\Java\jdk1.8.0_221</p>
-<p><strong>三、新建CLASSPATH变量</strong><br>变量名：CLASSPATH , 变量值： .;%JAVA_HOME%\lib;%JAVA_HOME%\lib\tools.jar（注意最前面有一点）。</p>
-<p><strong>四、配置系统环境变量Path</strong></p>
-<p>双击Path–&gt;新建–&gt;添加“%JAVA_HOME%\bin”–&gt;将这一行变量上移到最顶端–&gt;完成</p>
-]]></content>
-      <categories>
-        <category>笔记</category>
-      </categories>
-      <tags>
-        <tag>JDK</tag>
-        <tag>java</tag>
-        <tag>环境变量</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>小米Air 13&#39;3 OC引导安装黑苹果macOS Big Sur</title>
     <url>/2021/06/25/macOS-Big-Sur/</url>
     <content><![CDATA[<p>上周末，一兄弟打电话来问我会不会安装黑苹果。我跟他说几年前在虚拟机上安装过，没有在PC机或笔记本上安装过。我本意是——大几率不会安装。没想到他直接说，“那就好，我马上拿个笔记本过去你那帮安装一个！”。</p>
@@ -630,6 +608,28 @@
         <tag>GIF</tag>
         <tag>压缩</tag>
         <tag>抠图</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Windows下JDK8.0（JDK1.8）环境变量配置</title>
+    <url>/2021/11/23/jdk-1-8-ec/</url>
+    <content><![CDATA[<p>经常要在Windows Server安装配置JDK，目前只能用1.8，做个笔记。</p>
+<p><img src="https://images.idgesg.net/images/article/2019/03/javaworld_jvm_jdk_jre_explainer_java_development_kit_write_3x2_2400x1600_by_idg_oracle_vasabii_gettyimages-100790551-large.3x2.jpg" alt="JDK1.8环境变量配置"></p>
+<p>一、进入环境变量</p>
+<p><img src="https://images2018.cnblogs.com/blog/1468426/201808/1468426-20180818163820381-998111321.png" alt="JDK1.8环境变量配置"></p>
+<p><strong>二、新建JAVA_HOME系统变量</strong></p>
+<p>变量名：JAVA_HOME ，变量值：D:\Java\jdk1.8.0_221</p>
+<p><strong>三、新建CLASSPATH变量</strong><br>变量名：CLASSPATH , 变量值： .;%JAVA_HOME%\lib;%JAVA_HOME%\lib\tools.jar（注意最前面有一点）。</p>
+<p><strong>四、配置系统环境变量Path</strong></p>
+<p>双击Path–&gt;新建–&gt;添加“%JAVA_HOME%\bin”–&gt;将这一行变量上移到最顶端–&gt;完成</p>
+]]></content>
+      <categories>
+        <category>笔记</category>
+      </categories>
+      <tags>
+        <tag>JDK</tag>
+        <tag>java</tag>
+        <tag>环境变量</tag>
       </tags>
   </entry>
 </search>
